@@ -288,21 +288,43 @@ export class DiceBot extends GameObject {
 
         text = text.replace(/[Ａ-Ｚａ-ｚ０-９！＂＃＄％＆＇（）＊＋，－．／：；＜＝＞？＠［＼］＾＿｀｛｜｝]/g, function (s) {
           return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
-        });
+        }).replace(/[“”]/g, '"')
+        .replace(/’/g, "'")
+        .replace(/‘/g, '`')
+        .replace(/￥/g, '\\')
+        .replace(/　/g, ' ')
+        .replace(/[‐－―]/g, '-')
+        .replace(/、/g, ',')
+        .replace(/。/g, '.')
+        .replace(/[～〜]/g, '~');
 
+        let commands = text.trim().split(/\s+/);
+        let count = 1;
+        if (/^\d+$/.test(commands[0])) {
+          // 複数回ロール、コマンドの先頭を取り除く
+          count = parseInt(commands.shift(), 10);
+        }
+        // すべてBCDiceに投げずに回数が1回未満かchoice[]が含まれるか英数記号以外は門前払い
+        if (!commands[0] || count < 1 || !(/choice\[.*\]/i.test(commands[0]) || /^[a-zA-Z0-9!-/:-@¥[-`{-~\}]+$/.test(commands[0]))) {
+            return;
+        }
+        
         let gameType: string = chatMessage.tag;
 
         try {
-          let rollResult = await DiceBot.diceRollAsync(text, gameType);
-          let result: string = rollResult.result;
-          let isSecret: boolean = rollResult.isSecret;
-
-          if (result.length < 1) return;
-
-          result = result.replace(/[＞]/g, function (s) {
-            return '→';
-          });
-          result = result.trim();
+          let results = [];
+          let isSecret = false;
+          for (let i = 1; i <= count; i++) {
+            let rollResult = await DiceBot.diceRollAsync(commands[0], gameType);
+            let result: string = rollResult.result;
+            isSecret = rollResult.isSecret;
+            if (result.length < 1) return;
+            result = result.replace(/[＞]/g, function (s) {
+              return '→';
+            });
+            result = (count === 1 ? '' : '#' + i + ' ') + result.trim();
+            results.push(result);
+          }
 
           let diceBotMessage: ChatMessageContext = {
             identifier: '',
@@ -312,7 +334,7 @@ export class DiceBot extends GameObject {
             imageIdentifier: '',
             tag: 'system',
             name: isSecret ? '<Secret-BCDice：' + chatMessage.name + '>（非公開）' : '<BCDice：' + chatMessage.name + '>',
-            text: result
+            text: results.join("\r\n")
           };
 
           if (chatMessage.to != null && 0 < chatMessage.to.length) {
