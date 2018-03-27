@@ -379,8 +379,7 @@ export class DiceBot extends GameObject {
         .then(response => { return response.json() })
         .then(json => { 
           return json.ok ? {result: (gameType + ' ' + json.result) as string, isSecret: json.secret as boolean} : {result: '', isSecret: false}
-        })
-        //.catch(error => { console.error(error); return {result: '' as string, isSecret: false as boolean} })
+        });
     } else {
       DiceBot.queue.add(() => DiceBot.loadDiceBotAsync(gameType));
       return DiceBot.queue.add(() => {
@@ -408,10 +407,16 @@ export class DiceBot extends GameObject {
 
   static getHelpMessage(gameType: string): Promise<string> {
     if (DiceBot.hasApiURL()) {
-      gameType = (gameType && gameType != '') ? gameType : 'DiceBot';
-      return fetch(DiceBot.url + '/v1/systeminfo?system=' + encodeURIComponent(gameType), {mode: 'cors'})
-        .then(response => { return response.json() })
-        .then(json => { return json.systeminfo.info as string })
+      let promisise = [
+        fetch(DiceBot.url + '/v1/systeminfo?system=DiceBot', {mode: 'cors'}).then(response => { return response.json() })
+      ];
+      if (gameType && gameType != 'DiceBot') {
+        promisise.push(
+          fetch(DiceBot.url + '/v1/systeminfo?system=' + encodeURIComponent(gameType), {mode: 'cors'}).then(response => { return response.json() })
+        );
+      }
+      return Promise.all(promisise)
+        .then(jsons => { return jsons.map(json => { return json.systeminfo.info.trim() }).join('\n===================================\n') });
     } else {
       DiceBot.queue.add(() => DiceBot.loadDiceBotAsync(gameType));
       return DiceBot.queue.add(() => {
