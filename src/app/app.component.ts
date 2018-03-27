@@ -119,6 +119,14 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         }
       }).on<AppConfig>('LOAD_CONFIG', 0, event => {
         console.log('LOAD_CONFIG !!!', event.data);
+        if (event.data.dice) {
+          if (event.data.dice.url) DiceBot.setApiURL(event.data.dice.url);
+          if (event.data.dice.addition) {
+            for (let additionalDice of event.data.dice.addition) {
+              DiceBot.diceBotInfos.push({script: additionalDice.script, game: additionalDice.game});
+            }
+          }
+        }
         Network.setApiKey(event.data.webrtc.key);
         Network.open();
       })

@@ -101,7 +101,7 @@ export class ChatPaletteComponent implements OnInit {
       let gameName: string = 'ダイスボット';
       for (let diceBotInfo of DiceBot.diceBotInfos) {
         if (diceBotInfo.script === this.gameType) {
-          gameName = 'ダイスボット<' + diceBotInfo.game + '＞'
+          gameName = 'ダイスボット ＜' + diceBotInfo.game + '＞'
         }
       }
       gameName += 'の説明';
@@ -110,6 +110,7 @@ export class ChatPaletteComponent implements OnInit {
       let option: PanelOption = { left: coordinate.x, top: coordinate.y, width: 600, height: 500 };
       let textView = this.panelService.open(TextViewComponent, option);
       textView.title = gameName;
+      /*
       textView.text =
         '【ダイスボット】チャットにダイス用の文字を入力するとダイスロールが可能\n'
         + '入力例）２ｄ６＋１　攻撃！\n'
@@ -130,6 +131,8 @@ export class ChatPaletteComponent implements OnInit {
         + '　D66 ： D66ダイス。順序はゲームに依存。D66N：そのまま、D66S：昇順。\n'
         + '===================================\n'
         + help;
+      */
+      textView.text = help;
       console.log('onChangeGameType done');
     });
   }

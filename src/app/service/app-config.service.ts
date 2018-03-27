@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Network, EventSystem } from '../class/core/system/system';
 import { Database } from '../class/database/database';
+import { DiceBotInfo } from '../class/dice-bot';
 
 import * as yaml from 'js-yaml/dist/js-yaml.min.js';
 //import * as yaml from 'js-yaml';
@@ -16,6 +17,10 @@ export interface AppConfig {
   app: {
     title: string,
     mode: string
+  },
+  dice: {
+    url?: '',
+    addition?: DiceBotInfo[]
   }
 }
 
@@ -34,6 +39,9 @@ export class AppConfigService {
     app: {
       title: '',
       mode: ''
+    },
+    dice: {
+      url: ''
     }
   }
 
