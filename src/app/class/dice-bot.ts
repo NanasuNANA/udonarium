@@ -441,13 +441,14 @@ export class DiceBot extends GameObject {
           + '　choice[a,b,c]：列挙した要素から一つを選択表示。ランダム攻撃対象決定などに\n'
           + '　S3d6 ： 各コマンドの先頭に「S」を付けると他人結果の見えないシークレットロール\n'
           + '　3d6/2 ： ダイス出目を割り算（切り捨て）。切り上げは /2U、四捨五入は /2R。\n'
-          + '　D66 ： D66ダイス。順序はゲームに依存。D66N：そのまま、D66S：昇順。\n'
-          + '===================================\n';
+          + '　D66 ： D66ダイス。順序はゲームに依存。D66N：そのまま、D66S：昇順。'
         try {
-          let bcdice = Opal.get('CgiDiceBot').$new().$newBcDice();
-          bcdice.$setGameByTitle(gameType);
-          help += bcdice.diceBot.$getHelpMessage();
-          console.log('bot.getHelpMessage()!!!', help);
+          if (gameType && gameType != 'DiceBot') {
+            let bcdice = Opal.get('CgiDiceBot').$new().$newBcDice();
+            bcdice.$setGameByTitle(gameType);
+            help += ('\n===================================\n' + bcdice.diceBot.$getHelpMessage());
+            console.log('bot.getHelpMessage()!!!', help);
+          }
         } catch (e) {
           console.error(e);
         }
