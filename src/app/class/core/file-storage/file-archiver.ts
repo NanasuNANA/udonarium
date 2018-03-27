@@ -3,6 +3,7 @@ import { AudioStorage } from './audio-storage';
 import { Base64 } from './base64';
 import { MimeType } from './mime-type';
 import { EventSystem } from '../system/system';
+import { saveAs } from 'file-saver';
 
 import * as JSZip from 'jszip/dist/jszip.min.js';
 //import * as JSZip from 'jszip';
@@ -95,8 +96,6 @@ export class FileArchiver {
     if (file.type.indexOf('audio/') < 0) return;
     console.log(file.name + ' type:' + file.type);
     if (10 * 1024 * 1024 < file.size) return;
-    //await FileStorage.instance.addAsync(file);
-    console.warn('handleAudio() is not implemented. test play....');
     let audio = await AudioStorage.instance.addAsync(file);
   }
 
@@ -151,15 +150,7 @@ export class FileArchiver {
       compressionOptions: {
         level: 6
       }
-    }).then(blob => {
-      let a = document.createElement('a');
-      a.href = window.URL.createObjectURL(blob);
-      a.target = '_blank';
-      a.download = zipName + '.zip';
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(a.href);
-    });
+    }).then(blob => saveAs(blob, zipName + '.zip'));
   }
 }
 setTimeout(function () { FileArchiver.instance; }, 0);

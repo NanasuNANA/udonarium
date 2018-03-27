@@ -85,26 +85,28 @@ export class ImageFile {
   static async createAsync(blob: Blob): Promise<ImageFile>
   static async createAsync(arg: any): Promise<ImageFile> {
     if (arg instanceof File) {
-      return await ImageFile._createAsync(new Blob([arg.slice()], { type: arg.type }), arg.name);
+      return await ImageFile._createAsync(arg, arg.name);
     } else if (arg instanceof Blob) {
       return await ImageFile._createAsync(arg);
     }
   }
 
   private static async _createAsync(blob: Blob, name?: string): Promise<ImageFile> {
+    let arrayBuffer = await ImageFile.blobToArrayBuffer(blob); // ローカルから読み込んだファイルは一度FileReaderを通さないと表示できない
+
     let imageFile = new ImageFile();
+    imageFile.context.identifier = ImageFile.calcHash(arrayBuffer);
     imageFile.context.name = name;
-    imageFile.context.blob = blob;
-    imageFile.context.url = window.URL.createObjectURL(blob);
+    imageFile.context.blob = new Blob([arrayBuffer], { type: blob.type });
+    imageFile.context.url = window.URL.createObjectURL(imageFile.context.blob);
 
     try {
-      imageFile.context.identifier = await ImageFile.calHashAsync(blob);
       imageFile.context.thumbnail = await ImageFile.createThumbnailAsync(imageFile.context);
     } catch (e) {
       throw e;
     }
 
-    if (!imageFile.context.name) imageFile.context.name = imageFile.context.identifier;
+    if (imageFile.context.name != null) imageFile.context.name = imageFile.context.identifier;
 
     return imageFile;
   }
@@ -159,26 +161,9 @@ export class ImageFile {
     window.URL.revokeObjectURL(this.context.thumbnail.url);
   }
 
-  private static calHashAsync(blob: Blob): Promise<string> {
-    return new Promise((resolve, reject) => {
-      let reader = new FileReader();
-      reader.onload = event => {
-        
-        /*
-        let wordArray = (<any>CryptoJS).lib.WordArray.create(reader.result);
-        let hash: string = CryptoJS.SHA256(wordArray, 'key').toString();
-        */
-
-        let wordArray = WordArray.create(reader.result);
-        let hash: string = SHA256(<any>wordArray, 'key').toString();
-        
-        resolve(hash);
-      }
-      reader.onabort = reader.onerror = () => {
-        reject();
-      }
-      reader.readAsArrayBuffer(blob);
-    });
+  private static calcHash(arrayBuffer: ArrayBuffer): string {
+    let wordArray = WordArray.create(arrayBuffer);
+    return SHA256(<any>wordArray, 'key').toString();
   }
 
   private static createThumbnailAsync(context: ImageContext): Promise<ThumbnailContext> {
@@ -211,6 +196,15 @@ export class ImageFile {
         reject();
       }
       image.src = context.url;
+    });
+  }
+
+  static async blobToArrayBuffer(blob): Promise<ArrayBuffer> {
+    return new Promise<ArrayBuffer>((resolve, reject) => {
+      let reader = new FileReader();
+      reader.onload = event => { resolve(reader.result); }
+      reader.onabort = reader.onerror = () => { reject([]); }
+      reader.readAsArrayBuffer(blob);
     });
   }
 

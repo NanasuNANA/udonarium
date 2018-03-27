@@ -125,14 +125,14 @@ export class GameTableMaskComponent implements OnInit, OnDestroy, AfterViewInit 
     this.isDragging = false;
 
     this.removeMouseEventListeners();
+    e.preventDefault();
 
+    if (this.isLock) return;
     let deltaX = this.posX % 25;
     let deltaY = this.posY % 25;
 
     this.posX += deltaX < 12.5 ? -deltaX : 25 - deltaX;
     this.posY += deltaY < 12.5 ? -deltaY : 25 - deltaY;
-
-    e.preventDefault();
   }
 
   onMouseMove(e: any) {
