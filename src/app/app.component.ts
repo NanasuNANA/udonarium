@@ -123,7 +123,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
           if (event.data.dice.url) DiceBot.setApiURL(event.data.dice.url);
           if (event.data.dice.addition) {
             for (let additionalDice of event.data.dice.addition) {
-              DiceBot.diceBotInfos.push({script: additionalDice.script, game: additionalDice.game});
+              const gameType = DiceBot.hasApiURL() ? additionalDice.script.replace('_', ':') : additionalDice.script.replace(':', '_');
+              DiceBot.diceBotInfos.push({script: gameType, game: additionalDice.game});
             }
           }
         }
