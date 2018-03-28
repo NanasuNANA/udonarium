@@ -2,3 +2,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Verdana, Meiryo, sans-serif;
   font-size: 12px;
 }
+pre.text {
+  font-family: Consolas, "Courier New", Courier, Monaco, "ＭＳ ゴシック", "MS Gothic", Osaka-等幅, monospace;
+  white-space: pre-wrap;
+}
