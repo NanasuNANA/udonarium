@@ -232,7 +232,7 @@ export class GameTableMaskComponent implements OnInit, OnDestroy, AfterViewInit 
 
   private showDetail(gameObject: GameTableMask) {
     let coordinate = this.pointerDeviceService.pointers[0];
-    let option: PanelOption = { left: coordinate.x - 200, top: coordinate.y - 150, width: 400, height: 300 };
+    let option: PanelOption = { left: coordinate.x - 200, top: coordinate.y - 150, width: 440, height: 340 };
     let component = this.panelService.open<GameCharacterSheetComponent>(GameCharacterSheetComponent, option);
     component.tabletopObject = gameObject;
   }
