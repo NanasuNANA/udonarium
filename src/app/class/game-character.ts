@@ -47,7 +47,7 @@ export class GameCharacter extends TabletopObject {
     this.createDataElements();
 
     let nameElement: DataElement = DataElement.create('name', name, {}, 'name_' + this.identifier);
-    let sizeElement: DataElement = DataElement.create('size', size, {}, 'size_' + this.identifier);
+    let sizeElement: DataElement = DataElement.create('size', size, { type: 'size' }, 'size_' + this.identifier);
 
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
       this.imageDataElement.getFirstElementByName('imageIdentifier').value = imageIdentifier;
@@ -74,12 +74,12 @@ export class GameCharacter extends TabletopObject {
     //TEST
     testElement = DataElement.create('能力', '', {}, '能力' + this.identifier);
     this.detailDataElement.appendChild(testElement);
-    testElement.appendChild(DataElement.create('器用度', 24, {}, '器用度' + this.identifier));
-    testElement.appendChild(DataElement.create('敏捷度', 24, {}, '敏捷度' + this.identifier));
-    testElement.appendChild(DataElement.create('筋力', 24, {}, '筋力' + this.identifier));
-    testElement.appendChild(DataElement.create('生命力', 24, {}, '生命力' + this.identifier));
-    testElement.appendChild(DataElement.create('知力', 24, {}, '知力' + this.identifier));
-    testElement.appendChild(DataElement.create('精神力', 24, {}, '精神力' + this.identifier));
+    testElement.appendChild(DataElement.create('器用度', 24, { type: 'simpleNumber' }, '器用度' + this.identifier));
+    testElement.appendChild(DataElement.create('敏捷度', 24, { type: 'simpleNumber' }, '敏捷度' + this.identifier));
+    testElement.appendChild(DataElement.create('筋力', 24, { type: 'simpleNumber' }, '筋力' + this.identifier));
+    testElement.appendChild(DataElement.create('生命力', 24, { type: 'simpleNumber' }, '生命力' + this.identifier));
+    testElement.appendChild(DataElement.create('知力', 24, { type: 'simpleNumber' }, '知力' + this.identifier));
+    testElement.appendChild(DataElement.create('精神力', 24, { type: 'simpleNumber' }, '精神力' + this.identifier));
 
     //TEST
     testElement = DataElement.create('戦闘特技', '', {}, '戦闘特技' + this.identifier);

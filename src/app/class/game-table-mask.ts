@@ -41,9 +41,9 @@ export class GameTableMask extends TabletopObject {
     }
     object.createDataElements();
 
-    object.commonDataElement.appendChild(DataElement.create('name', name, {}, 'name_' + object.identifier));
-    object.commonDataElement.appendChild(DataElement.create('width', width, {}, 'width_' + object.identifier));
-    object.commonDataElement.appendChild(DataElement.create('height', height, {}, 'height_' + object.identifier));
+    object.commonDataElement.appendChild(DataElement.create('name', name, { }, 'name_' + object.identifier));
+    object.commonDataElement.appendChild(DataElement.create('width', width, { type: 'size' }, 'width_' + object.identifier));
+    object.commonDataElement.appendChild(DataElement.create('height', height, { type: 'size' }, 'height_' + object.identifier));
     object.commonDataElement.appendChild(DataElement.create('opacity', opacity, { type: 'numberResource', currentValue: opacity }, 'opacity_' + object.identifier));
     object.initialize();
 

@@ -8,6 +8,7 @@
       <button (click)="downElement()"><i class="material-icons">arrow_downward</i></button>
       <select (change)="setElementType($event.target.value)" [ngModel]="gameDataElement.type">
           <option value="">通常</option>
+          <option value="simpleNumber">数値</option>
           <option value="numberResource">リソース</option>
           <option value="note">ノート</option>
       </select>
@@ -28,9 +29,20 @@
           <input style="width:90%;" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" type="range" min="0"
             max="{{gameDataElement.value}}" />
           <br>
-          <input style="width:40%;" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" placeholder="Value"
+          <input style="width:40%;" type="number" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" placeholder="Value"
           /> /
-          <input style="width:40%;" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value"
+          <input style="width:40%;" type="number" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value"
+          />
+        </ng-container>
+        <ng-container *ngSwitchCase="'size'">
+          <input style="width:90%;" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" type="range" min="0"
+            max="12" />
+          <br>
+          <input style="width:90%;" type="number" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value"
+          />
+        </ng-container>
+        <ng-container *ngSwitchCase="'simpleNumber'">
+          <input style="width:100%;" type="number" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value"
           />
         </ng-container>
         <ng-container *ngSwitchCase="'note'">

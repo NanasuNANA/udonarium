@@ -23,9 +23,9 @@
                 <input style="width:90%; height: 5px;" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" type="range"
                   min="0" max="{{gameDataElement.value}}" />
                 <br> {{gameDataElement.name}}
-                <input class="input" [ngClass]="{'input_selected': (selectedIdentifier === gameObject.identifier)}" style="width:auto;" size="1"
+                <input class="input" type="number" [ngClass]="{'input_selected': (selectedIdentifier === gameObject.identifier)}" style="width:auto;" size="1"
                   (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" placeholder="Value" />                /
-                <input class="input" [ngClass]="{'input_selected': (selectedIdentifier === gameObject.identifier)}" style="width:auto;" size="1"
+                <input class="input" type="number" [ngClass]="{'input_selected': (selectedIdentifier === gameObject.identifier)}" style="width:auto;" size="1"
                   (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value" />
               </div>
             </div>
