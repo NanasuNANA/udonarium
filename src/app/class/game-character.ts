@@ -47,7 +47,7 @@ export class GameCharacter extends TabletopObject {
     this.createDataElements();
 
     let nameElement: DataElement = DataElement.create('name', name, {}, 'name_' + this.identifier);
-    let sizeElement: DataElement = DataElement.create('size', size, { type: 'size' }, 'size_' + this.identifier);
+    let sizeElement: DataElement = DataElement.create('size', size, {}, 'size_' + this.identifier);
 
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
       this.imageDataElement.getFirstElementByName('imageIdentifier').value = imageIdentifier;

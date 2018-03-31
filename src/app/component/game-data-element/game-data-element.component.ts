@@ -21,6 +21,16 @@ export class GameDataElementComponent implements OnInit, OnDestroy, AfterViewIni
   @Input() isTagLocked: boolean = false;
   @Input() isValueLocked: boolean = false;
   // gameDataElement.currentValueだと遅い　何とかする
+  
+  get isSize(): boolean {
+    if (this.gameDataElement) {
+      return this.isTagLocked && (this.gameDataElement.name === 'size'
+        || this.gameDataElement.name === 'width'
+        || this.gameDataElement.name === 'height'
+        || this.gameDataElement.name === 'depth');
+    }
+    return false;
+  }
 
   constructor(
     private ngZone: NgZone,
