@@ -53,6 +53,10 @@ export class JukeboxComponent implements OnInit {
     this.jukebox.play(audio.identifier, true);
   }
 
+  playOnce(audio: AudioFile) {
+    this.jukebox.play(audio.identifier, false);
+  }
+  
   stopBGM(audio: AudioFile) {
     if (this.jukebox.audio === audio) this.jukebox.stop();
   }
