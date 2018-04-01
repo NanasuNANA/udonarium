@@ -26,6 +26,7 @@ export class JukeboxComponent implements OnInit {
   
   get audios(): AudioFile[] { return AudioStorage.instance.audios; }
   get jukebox(): Jukebox { return ObjectStore.instance.get<Jukebox>('Jukebox'); }
+  get jukeboxOnce(): Jukebox { return ObjectStore.instance.get<Jukebox>('JukeboxOnce'); }
 
   constructor(
     private modalService: ModalService,
@@ -54,10 +55,11 @@ export class JukeboxComponent implements OnInit {
   }
 
   playOnce(audio: AudioFile) {
-    this.jukebox.play(audio.identifier, false);
+    this.jukeboxOnce.play(audio.identifier, false);
   }
   
   stopBGM(audio: AudioFile) {
     if (this.jukebox.audio === audio) this.jukebox.stop();
+    if (this.jukeboxOnce.audio === audio) this.jukeboxOnce.stop();
   }
 }

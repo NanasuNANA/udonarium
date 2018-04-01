@@ -85,7 +85,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
     let jukebox: Jukebox = new Jukebox('Jukebox');
     jukebox.initialize();
-
+    let jukeboxOnce: Jukebox = new Jukebox('JukeboxOnce');
+    jukeboxOnce.initialize();
+    
     //let chatTabList: ChatTabList = new ChatTabList('MainTabList');
     //chatTabList.initialize();
 
