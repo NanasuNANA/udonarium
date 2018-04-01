@@ -27,7 +27,8 @@ export class GameDataElementComponent implements OnInit, OnDestroy, AfterViewIni
       return this.isTagLocked && (this.gameDataElement.name === 'size'
         || this.gameDataElement.name === 'width'
         || this.gameDataElement.name === 'height'
-        || this.gameDataElement.name === 'depth');
+        || this.gameDataElement.name === 'depth'
+        || this.gameDataElement.name === 'fontsize');
     }
     return false;
   }
