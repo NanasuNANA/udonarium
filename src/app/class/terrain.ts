@@ -24,7 +24,9 @@ export class Terrain extends TabletopObject {
   get width(): number {
     let element = this.getElement('width', this.commonDataElement);
     let num = element ? +element.value : 0;
-    return Number.isNaN(num) ? 1 : num;
+    return Number.isNaN(num) ? 1 : 
+    num <= 0 && (this.height <= 0 || this.depth <= 0) ? 0.1 : 
+    num;
   }
 
   set width(width: number) {
@@ -35,7 +37,9 @@ export class Terrain extends TabletopObject {
   get height(): number {
     let element = this.getElement('height', this.commonDataElement);
     let num = element ? +element.value : 0;
-    return Number.isNaN(num) ? 1 : num;
+    return Number.isNaN(num) ? 1 : 
+    num <= 0 && (this.width <= 0 || this.depth <= 0) ? 0.1 : 
+    num;
   }
 
   set height(height: number) {
@@ -46,7 +50,9 @@ export class Terrain extends TabletopObject {
   get depth(): number {
     let element = this.getElement('depth', this.commonDataElement);
     let num = element ? +element.value : 0;
-    return Number.isNaN(num) ? 1 : num;
+    return Number.isNaN(num) ? 1 : 
+    num <= 0 && (this.height <= 0 || this.width <= 0) ? 0.1 : 
+    num;
   }
 
   set depth(depth: number) {
