@@ -28,7 +28,7 @@
         <input style="width:90%;" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" type="range" min="0"
           max="{{gameDataElement.name === 'fontsize' ? 120 : 20}}" />
         <br>
-        <input style="width:90%; max-width:8em" type="number" min="0" step="0.2" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value"
+        <input style="width:90%; max-width:8em" type="number" min="0" step="0.1" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value"
          />
       </ng-container>
       <ng-container *ngIf="!isSize">
