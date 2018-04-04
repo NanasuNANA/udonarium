@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild, NgZone } from '@angular/core';
+import { MarkdownService } from 'ngx-markdown';
 
 import { ImageFile } from '../../class/core/file-storage/image-file';
 import { EventSystem } from '../../class/core/system/system';
@@ -18,6 +19,7 @@ import { TabletopObject } from '../../class/tabletop-object';
 export class TextNoteComponent implements OnInit {
   @ViewChild('root') rootElementRef: ElementRef;
   @ViewChild('textArea') textAreaElementRef: ElementRef;
+  @ViewChild('markdownArea') markdownAreaElementRef: ElementRef;
 
   @Input() textNote: TextNote = null;
   @Input() is3D: boolean = false;
@@ -81,7 +83,8 @@ export class TextNoteComponent implements OnInit {
     private contextMenuService: ContextMenuService,
     private panelService: PanelService,
     private elementRef: ElementRef,
-    private pointerDeviceService: PointerDeviceService
+    private pointerDeviceService: PointerDeviceService,
+    private markdownService: MarkdownService
   ) { }
 
   ngOnInit() {
@@ -332,9 +335,14 @@ export class TextNoteComponent implements OnInit {
 
   calcFitHeight() {
     let textArea: HTMLTextAreaElement = this.textAreaElementRef.nativeElement;
+    let markdownArea: HTMLTextAreaElement = this.markdownAreaElementRef.nativeElement;
     textArea.style.height = '0';
+    markdownArea.style.height = '0';
     if (textArea.scrollHeight > textArea.offsetHeight) {
       textArea.style.height = textArea.scrollHeight + 'px';
+    }
+    if (markdownArea.scrollHeight > markdownArea.offsetHeight) {
+      markdownArea.style.height = markdownArea.scrollHeight + 'px';
     }
   }
 

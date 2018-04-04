@@ -169,3 +169,14 @@ button:disabled {
   }
 
 input[type="number"] {text-align: right}
+div.markdown h1, div.markdown h2, div.markdown h3, div.markdown h4, div.markdown h5, div.markdown h6, div.markdown p, div.markdown table, div.markdown ul, div.markdown ol {
+  margin: 0px;
+  margin-bottom: 0.3em;
+}
+div.markdown table {
+  border-collapse: collapse;
+  border: 1px solid #444;
+}
+div.markdown table th, div.markdown table td {
+  border: 1px solid #444;
+}

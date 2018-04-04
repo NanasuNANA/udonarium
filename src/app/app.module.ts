@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 import { AppComponent } from './app.component';
 import { CardComponent } from './component/card/card.component';
@@ -85,7 +86,17 @@ import { PointerDeviceService } from './service/pointer-device.service';
     BrowserAnimationsModule,
     CommonModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MarkdownModule.forRoot({
+      provide: MarkedOptions,
+      useValue: {
+        gfm: true,
+        headerIds: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: true
+      }
+    })
   ],
   providers: [
     AppConfigService,
