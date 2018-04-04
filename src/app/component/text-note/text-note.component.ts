@@ -374,7 +374,7 @@ export class TextNoteComponent implements OnInit {
     console.log('onSelectedGameObject <' + gameObject.aliasName + '>', gameObject.identifier);
     EventSystem.trigger('SELECT_TABLETOP_OBJECT', { identifier: gameObject.identifier, className: gameObject.aliasName });
     let coordinate = this.pointerDeviceService.pointers[0];
-    let option: PanelOption = { left: coordinate.x - 350, top: coordinate.y - 200, width: 700, height: 400 };
+let option: PanelOption = { left: coordinate.x - 350, top: coordinate.y - 200, width: 500, height: 520 };
     let component = this.panelService.open<GameCharacterSheetComponent>(GameCharacterSheetComponent, option);
     component.tabletopObject = gameObject;
   }
