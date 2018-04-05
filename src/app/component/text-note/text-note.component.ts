@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild, NgZone } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MarkdownService } from 'ngx-markdown';
 
 import { ImageFile } from '../../class/core/file-storage/image-file';
@@ -84,6 +85,7 @@ export class TextNoteComponent implements OnInit {
     private panelService: PanelService,
     private elementRef: ElementRef,
     private pointerDeviceService: PointerDeviceService,
+    private sanitizer: DomSanitizer,
     private markdownService: MarkdownService
   ) { }
 
@@ -350,6 +352,10 @@ export class TextNoteComponent implements OnInit {
     return value < min ? min : value;
   }
 
+  private markDownCompile(text: string) : SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(this.markdownService.compile(text));
+  }
+  
   private addMouseEventListeners() {
     document.body.addEventListener('mouseup', this.callbackOnMouseUp, false);
     document.body.addEventListener('mousemove', this.callbackOnMouseMove, false);
