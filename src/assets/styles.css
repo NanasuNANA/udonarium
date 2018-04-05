@@ -170,8 +170,12 @@ button:disabled {
 
 input[type="number"] {text-align: right}
 div.markdown h1, div.markdown h2, div.markdown h3, div.markdown h4, div.markdown h5, div.markdown h6, div.markdown p, div.markdown table, div.markdown ul, div.markdown ol {
-  margin: 0px;
-  margin-bottom: 0.3em;
+  margin: 2px;
+}
+div.markdown blockquote {
+  margin: 0.5em;
+  padding-left: 2px;
+  border-left: 2px solid #efe;
 }
 div.markdown table {
   border-collapse: collapse;
@@ -179,4 +183,8 @@ div.markdown table {
 }
 div.markdown table th, div.markdown table td {
   border: 1px solid #444;
+}
+div.narkdown em {
+  font-family: cursive;
+  font-style: italic;
 }
