@@ -119,6 +119,10 @@ export class TextNoteComponent implements OnInit {
   @HostListener('mousedown', ['$event'])
   onMouseDown(e: any) {
     if (this.isSelected) return;
+    if (e.target.tagName === 'A') {
+      window.open(e.target.href);
+      return;
+    }
     e.preventDefault();
     this.textNote.toTopmost();
     this.isAllowedToOpenContextMenu = true;
