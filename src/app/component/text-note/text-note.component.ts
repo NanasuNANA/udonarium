@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild, NgZone } from '@angular/core';
 import { MarkdownService } from 'ngx-markdown';
 
+import { FileStorage } from '../../class/core/file-storage/file-storage';
 import { ImageFile } from '../../class/core/file-storage/image-file';
 import { EventSystem } from '../../class/core/system/system';
 import { Terrain, TerrainViewState } from '../../class/terrain';
@@ -25,8 +26,8 @@ export class TextNoteComponent implements OnInit {
   @Input() is3D: boolean = false;
 
   get title(): string { return this.textNote.title; }
-  get text(): string { this.calcFitHeightIfNeeded(); return this.textNote.text; }
-  set text(text: string) { this.calcFitHeightIfNeeded(); this.textNote.text = text; }
+  get text(): string { this.calcFitHeightIfNeeded(); return this.markdownImageBrobUrlReplace2Id(this.textNote.text); }
+  set text(text: string) { this.calcFitHeightIfNeeded(); this.textNote.text = this.markdownImageBrobUrlReplace2Id(text); }
   get fontSize(): number { this.calcFitHeightIfNeeded(); return this.textNote.fontSize; }
   get imageFile(): ImageFile { return this.textNote.imageFile; }
   get rotate(): number { return this.textNote.rotate; }
@@ -350,6 +351,28 @@ export class TextNoteComponent implements OnInit {
     }
   }
 
+  markdownImageBrobUrlReplace2Id(text: string): string {
+    const Images: ImageFile[] = FileStorage.instance.images;
+    return text.replace(/\!\[(.*)\]\(\s*(blob\:https?\:\/\/[^\s]+)(\s+['"].*['"])?\s*\)/, (match: string, ...args: any[]): string => {
+      let alt: string = args[0]
+      let url: string = args[1];
+      let title: string = args[2];
+      for (let imageFile of Images) {
+        if (imageFile.url === url) {
+           let res = `![${alt}](${imageFile.identifier}`;
+           if (title && title !== '') res += `${title}`;
+           res += ')';
+           return res;
+        }
+      }
+      return match;
+    });
+  }
+
+  markdownCompile(text: string): string {
+    return this.markdownService.compile(text);
+  }
+  
   private adjustMinBounds(value: number, min: number = 0): number {
     return value < min ? min : value;
   }

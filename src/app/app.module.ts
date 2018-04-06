@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { MarkdownModule, MarkedOptions, MarkedRenderer } from 'ngx-markdown';
 
 import { AppComponent } from './app.component';
 import { CardComponent } from './component/card/card.component';
@@ -45,6 +45,23 @@ import { ModalService } from './service/modal.service';
 import { PanelService } from './service/panel.service';
 import { PointerDeviceService } from './service/pointer-device.service';
 
+import { FileStorage } from './class/core/file-storage/file-storage';
+import { ImageFile } from './class/core/file-storage/image-file';
+
+let markedRenderer = new MarkedRenderer();
+markedRenderer.image = function (href: string, title: string, text: string): string {
+  // IdentifierをURLに変換
+  let file: ImageFile = FileStorage.instance.get(href);
+  if (file) {
+    href = file.url;
+  }
+  let out = '<img src="' + href + '" alt="' + text + '"';
+  if (title) {
+    out += ' title="' + title + '"';
+  }
+  out += '>';
+  return out;
+};
 
 @NgModule({
   declarations: [
@@ -94,7 +111,8 @@ import { PointerDeviceService } from './service/pointer-device.service';
         headerIds: false,
         sanitize: true,
         smartLists: true,
-        smartypants: true
+        smartypants: true,
+        renderer: markedRenderer
       }
     })
   ],
