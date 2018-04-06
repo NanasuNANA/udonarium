@@ -352,14 +352,14 @@ export class TextNoteComponent implements OnInit {
     }
   }
 
-  markdownCompile(text: string) : SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(this.markdownService.compile(text));
-  }
-
   private adjustMinBounds(value: number, min: number = 0): number {
     return value < min ? min : value;
   }
 
+  private markDownCompile(text: string) : SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(this.markdownService.compile(text));
+  }
+  
   private addMouseEventListeners() {
     document.body.addEventListener('mouseup', this.callbackOnMouseUp, false);
     document.body.addEventListener('mousemove', this.callbackOnMouseMove, false);
