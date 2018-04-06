@@ -93,7 +93,8 @@ import { PointerDeviceService } from './service/pointer-device.service';
         gfm: true,
         headerIds: false,
         sanitize: true,
-        smartLists: true
+        smartLists: true,
+        smartypants: true
       }
     })
   ],
