@@ -13,6 +13,7 @@ import { DataElement } from '../../class/data-element';
 import { TabletopObject } from '../../class/tabletop-object';
 import { Card, CardState } from '../../class/card';
 import { Terrain } from '../../class/terrain';
+import { TextNote } from '../../class/text-note';
 
 import { Network, EventSystem } from '../../class/core/system/system';
 import { ObjectStore } from '../../class/core/synchronize-object/object-store';
@@ -153,6 +154,14 @@ export class GameCharacterSheetComponent implements OnInit, OnDestroy, AfterView
       let identifier = imageElements[i].getAttribute('imageIdentifier');
       images[identifier] = FileStorage.instance.get(identifier);
     }
+    
+    // 共有メモの場合は文中から取る
+    if (this.tabletopObject instanceof TextNote) {
+      for (let imageFile of FileStorage.instance.images) {
+        if (this.tabletopObject.text.indexOf(imageFile.identifier) >= 0) images[imageFile.identifier] = imageFile;
+      }
+    }
+    
     for (let identifier in images) {
       let image = images[identifier];
       if (image && image.blob) {
