@@ -6,6 +6,9 @@ import { GameCharacter, GameCharacterContainer } from '../../class/game-characte
 //import { FileStorageProxy, FileDataContainer } from './file-storage.service';
 import { DataElement } from '../../class/data-element';
 
+import { FileStorage } from '../../class/core/file-storage/file-storage';
+import { ImageFile } from '../../class/core/file-storage/image-file';
+
 import { Network, EventSystem } from '../../class/core/system/system';
 import { ObjectStore } from '../../class/core/synchronize-object/object-store';
 import { GameObject } from '../../class/core/synchronize-object/game-object';
@@ -88,5 +91,24 @@ export class GameDataElementComponent implements OnInit, OnDestroy, AfterViewIni
 
   setElementType(type: string) {
     this.gameDataElement.setAttribute('type', type);
+  }
+  
+  markdownImageBrobUrlReplace2IdValue(): void {
+    if (!this.isTagLocked || !this.gameDataElement) return;
+    const Images: ImageFile[] = FileStorage.instance.images;
+    this.gameDataElement.value = this.gameDataElement.value.toString().replace(/\!\[(.*)\]\(\s*(blob\:https?\:\/\/[^\s]+)(\s+['"].*['"])?\s*\)/, (match: string, ...args: any[]): string => {
+      let alt: string = args[0]
+      let url: string = args[1];
+      let title: string = args[2];
+      for (let imageFile of Images) {
+        if (imageFile.url === url) {
+           let res = `![${alt}](${imageFile.identifier}`;
+           if (title && title !== '') res += `${title}`;
+           res += ')';
+           return res;
+        }
+      }
+      return match;
+    });
   }
 }
