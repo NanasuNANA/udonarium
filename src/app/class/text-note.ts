@@ -79,7 +79,7 @@ export class TextNote extends TabletopObject {
   }
   
   markdownImageBrobUrlReplace2Id(text: string): string {
-    return text.replace(/\!\[(.*?)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*?['"])?\s*\)|^\[(.+?)\]\:\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*['"])?[ \t]*$/gm, (match: string, ...args: any[]): string => {
+    return text.replace(/\!\[(.*?)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*?['"])?\s*\)|^[ \t]*\[(.+?)\]\:\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*['"])?[ \t]*$/gm, (match: string, ...args: any[]): string => {
       let offset = (args[4] && args[4] !== '') ? 3 : 0;
       let url: string = (new URL(args[1 + offset], location.href)).href;
       if (url.indexOf(location.host) < 0) return match;
