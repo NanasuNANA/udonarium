@@ -2,6 +2,8 @@ import { SyncObject, SyncVar } from './core/synchronize-object/anotation';
 import { TabletopObject } from './tabletop-object';
 import { DataElement } from './data-element';
 import { ObjectStore } from './core/synchronize-object/object-store';
+import { FileStorage } from './core/file-storage/file-storage';
+import { ImageFile } from './core/file-storage/image-file';
 
 @SyncObject('text-note')
 export class TextNote extends TabletopObject {
@@ -40,7 +42,7 @@ export class TextNote extends TabletopObject {
   set text(text: string) {
     let element = this.getElement('text', this.commonDataElement);
     if (!element) return;
-    element.value = text;
+    element.value = this.markdownImageBrobUrlReplace2Id(text);
   }
 
   toTopmost() {
@@ -74,5 +76,23 @@ export class TextNote extends TabletopObject {
     object.initialize();
 
     return object;
+  }
+  
+  markdownImageBrobUrlReplace2Id(text: string): string {
+    return text.replace(/\!\[(.*?)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*?['"])?\s*\)/g, (match: string, ...args: any[]): string => {
+      let url: string = (new URL(args[1], location.href)).href;
+      if (url.indexOf(location.host) < 0) return match;
+      let alt: string = args[0]
+      let title: string = args[2];
+      for (let imageFile of FileStorage.instance.images) {
+        if ((new URL(imageFile.url, location.href)).href === url) {
+           let res = `![${alt}](${imageFile.identifier}`;
+           if (title && title !== '') res += `${title}`;
+           res += ')';
+           return res;
+        }
+      }
+      return match;
+    });
   }
 }
