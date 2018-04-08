@@ -184,7 +184,14 @@ div.markdown table {
 div.markdown table th, div.markdown table td {
   border: 1px solid #444;
 }
-div.narkdown em {
+div.markdown em {
   font-family: cursive;
   font-style: italic;
+}
+div.markdown img {
+  max-width: 400px;
+  max-height: 400px;
+}
+div.markdown a {
+  pointer-events: auto !important;
 }
