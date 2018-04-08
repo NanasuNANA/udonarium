@@ -79,16 +79,17 @@ export class TextNote extends TabletopObject {
   }
   
   markdownImageBrobUrlReplace2Id(text: string): string {
-    return text.replace(/\!\[(.*?)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*?['"])?\s*\)/g, (match: string, ...args: any[]): string => {
-      let url: string = (new URL(args[1], location.href)).href;
+    return text.replace(/\!\[(.*?)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*?['"])?\s*\)|^\[(.+?)\]\:\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*['"])?[ \t]*$/gm, (match: string, ...args: any[]): string => {
+      let offset = (args[4] && args[4] !== '') ? 3 : 0;
+      let url: string = (new URL(args[1 + offset], location.href)).href;
       if (url.indexOf(location.host) < 0) return match;
-      let alt: string = args[0]
-      let title: string = args[2];
+      let alt: string = args[0 + offset]
+      let title: string = args[2 + offset];
       for (let imageFile of FileStorage.instance.images) {
         if ((new URL(imageFile.url, location.href)).href === url) {
-           let res = `![${alt}](${imageFile.identifier}`;
+           let res = (offset === 0) ? `![${alt}](image:${imageFile.identifier}` : `[${alt}]: image:${imageFile.identifier}`;
            if (title && title !== '') res += `${title}`;
-           res += ')';
+           if (offset === 0) res += ')';
            return res;
         }
       }

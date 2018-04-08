@@ -246,7 +246,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     let markDownElements = xmlElement.querySelectorAll('text-note *[name="common"] *[type="note"]');
     for (let i = 0; i < markDownElements.length; i++) {
       for (let imageFile of FileStorage.instance.images) {
-        if (markDownElements[i].textContent.indexOf(imageFile.identifier) >= 0) images[imageFile.identifier] = imageFile;
+        if (markDownElements[i].textContent.indexOf('image:' + imageFile.identifier) >= 0) images[imageFile.identifier] = imageFile;
       }
     }
     for (let identifier in images) {

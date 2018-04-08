@@ -158,7 +158,7 @@ export class GameCharacterSheetComponent implements OnInit, OnDestroy, AfterView
     // 共有メモの場合は文中から取る
     if (this.tabletopObject instanceof TextNote) {
       for (let imageFile of FileStorage.instance.images) {
-        if (this.tabletopObject.text.indexOf(imageFile.identifier) >= 0) images[imageFile.identifier] = imageFile;
+        if (this.tabletopObject.text.indexOf('image:' + imageFile.identifier) >= 0) images[imageFile.identifier] = imageFile;
       }
     }
     
