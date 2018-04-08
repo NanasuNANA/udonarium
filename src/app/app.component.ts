@@ -241,6 +241,14 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       let identifier = imageElements[i].getAttribute('imageIdentifier');
       images[identifier] = FileStorage.instance.get(identifier);
     }
+
+    // 共有メモの場合本文から取る
+    let markDownElements = xmlElement.querySelectorAll('text-note *[name="common"] *[type="note"]');
+    for (let i = 0; i < markDownElements.length; i++) {
+      for (let imageFile of FileStorage.instance.images) {
+        if (markDownElements[i].textContent.indexOf(imageFile.identifier) >= 0) images[imageFile.identifier] = imageFile;
+      }
+    }
     for (let identifier in images) {
       let image = images[identifier];
       if (image && image.blob) {
