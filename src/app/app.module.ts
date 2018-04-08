@@ -51,11 +51,9 @@ import { ImageFile } from './class/core/file-storage/image-file';
 let markedRenderer = new MarkedRenderer();
 markedRenderer.image = function (href: string, title: string, text: string): string {
   // IdentifierをURLに変換
-  if (href.indexOf('image:') === 0) {
-    let file: ImageFile = FileStorage.instance.get(href.replace('image:', ''));
-    if (file) {
-      href = file.url;
-    }
+  let file: ImageFile = FileStorage.instance.get(href);
+  if (file) {
+    href = file.url;
   } 
   let out = '<img src="' + href + '" alt="' + text + '"';
   if (title) {

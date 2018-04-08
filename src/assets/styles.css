@@ -172,7 +172,11 @@ input[type="number"] {
   text-align: right
 }
 
-div.markdown p {
+textarea.data-element-note, .markdown {
+  font-family: Consolas, 'Courier New', Courier, Monaco, monospace !important;
+}
+
+div.markdown p, div.markdown pre {
   margin: 0px;
   padding: 0px;
 }
