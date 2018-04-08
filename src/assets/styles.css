@@ -168,8 +168,15 @@ button:disabled {
     }
   }
 
-input[type="number"] {text-align: right}
-div.markdown h1, div.markdown h2, div.markdown h3, div.markdown h4, div.markdown h5, div.markdown h6, div.markdown p, div.markdown table, div.markdown ul, div.markdown ol {
+input[type="number"] {
+  text-align: right
+}
+
+div.markdown p {
+  margin: 0px;
+  padding: 0px;
+}
+div.markdown h1, div.markdown h2, div.markdown h3, div.markdown h4, div.markdown h5, div.markdown h6, div.markdown table, div.markdown ul, div.markdown ol {
   margin: 2px;
 }
 div.markdown blockquote {
