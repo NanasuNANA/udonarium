@@ -95,13 +95,13 @@ export class GameDataElementComponent implements OnInit, OnDestroy, AfterViewIni
   
   markdownImageBrobUrlReplace2IdValue(): void {
     if (!this.isTagLocked || !this.gameDataElement) return;
-    const Images: ImageFile[] = FileStorage.instance.images;
-    this.gameDataElement.value = this.gameDataElement.value.toString().replace(/\!\[(.*)\]\(\s*(blob\:https?\:\/\/[^\s]+)(\s+['"].*['"])?\s*\)/, (match: string, ...args: any[]): string => {
-      let alt: string = args[0]
-      let url: string = args[1];
+    this.gameDataElement.value = this.gameDataElement.value.toString().replace(/\!\[(.*)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+)(\s+['"].*['"])?\s*\)/, (match: string, ...args: any[]): string => {
+      let url: string = (new URL(args[1], location.href)).href;
+      if (url.indexOf(location.host) < 0) return match;
+      let alt: string = args[0];
       let title: string = args[2];
-      for (let imageFile of Images) {
-        if (imageFile.url === url) {
+      for (let imageFile of FileStorage.instance.images) {
+        if ((new URL(imageFile.url, location.href)).href === url) {
            let res = `![${alt}](${imageFile.identifier}`;
            if (title && title !== '') res += `${title}`;
            res += ')';
