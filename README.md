@@ -1,3 +1,7 @@
+ユドナリウムに[BCDice-API](https://github.com/NKMR6194/bcdice-api)利用とか共有メモに[Markdown](https://daringfireball.net/projects/markdown/)記法とか数値型とか追加。
+
+Mrakdownの処理に[ngx-markdown](https://github.com/ngx-markdown/)使用、ライセンスはMITのまま。
+
 # ユドナリウム
 
 [ユドナリウム（Udonarium）](http://udon.webcrow.jp)は、Webアプリケーションとして構成された、ボードゲームオンラインセッション支援ツールです。
