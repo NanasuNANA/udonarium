@@ -117,11 +117,8 @@ export class TextNoteComponent implements OnInit {
 
   @HostListener('mousedown', ['$event'])
   onMouseDown(e: any) {
+    if (e.target.tagName === 'A' || e.target.parentNode.tagName === 'A') return;
     if (this.isSelected) return;
-    if (e.target.tagName === 'A') {
-      window.open(e.target.href);
-      return;
-    }
     e.preventDefault();
     this.textNote.toTopmost();
     this.isAllowedToOpenContextMenu = true;
@@ -353,7 +350,7 @@ export class TextNoteComponent implements OnInit {
 
   markdownImageBrobUrlReplace2Id(text: string): string {
     const Images: ImageFile[] = FileStorage.instance.images;
-    return text.replace(/\!\[(.*)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+)(\s+['"].*['"])?\s*\)/, (match: string, ...args: any[]): string => {
+    return text.replace(/\!\[(.*?)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*['"])?\s*\)/g, (match: string, ...args: any[]): string => {
       let url: string = (new URL(args[1], location.href)).href;
       if (url.indexOf(location.host) < 0) return match;
       let alt: string = args[0]

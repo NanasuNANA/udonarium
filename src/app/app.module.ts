@@ -62,6 +62,27 @@ markedRenderer.image = function (href: string, title: string, text: string): str
   out += '>';
   return out;
 };
+markedRenderer.link = function(href, title, text) {
+  // 必ずサニタイズでいいよね
+  try {
+    var prot = decodeURIComponent(href)
+      .replace(/[^\w:]/g, '')
+      .toLowerCase();
+  } catch (e) {
+    return text;
+  }
+  if (prot.indexOf('javascript:') === 0 || prot.indexOf('vbscript:') === 0 || prot.indexOf('data:') === 0) {
+    return text;
+  }
+  // 必ず target="_blank"
+  var out = '<a target="_blank" href="' + href + '"';
+  if (title) {
+    out += ' title="' + title + '"';
+  }
+  out += '>' + text + '</a>';
+  return out;
+};
+
 
 @NgModule({
   declarations: [

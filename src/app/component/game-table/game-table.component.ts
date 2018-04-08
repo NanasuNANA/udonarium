@@ -153,7 +153,6 @@ export class GameTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onMouseDown(e: any) {
-    if (e.target.tagName === 'A') return true;
     this.mouseDownPositionX = this.pointerDeviceService.pointerX;
     this.mouseDownPositionY = this.pointerDeviceService.pointerY;
 
