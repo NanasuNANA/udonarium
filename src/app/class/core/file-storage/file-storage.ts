@@ -12,6 +12,7 @@ export class FileStorage {
   }
 
   private imageHash: { [identifier: string]: ImageFile } = {};
+  private imageURLHash: { [url: string]: ImageFile } = {};
 
   get images(): ImageFile[] {
     let images: ImageFile[] = [];
@@ -64,6 +65,7 @@ export class FileStorage {
     this.lazySynchronize(100);
     if (this.update(image)) return this.imageHash[image.identifier];
     this.imageHash[image.identifier] = image;
+    this.imageURLHash[(new URL(image.url, location.href)).href] = image;
     console.log('addNewFile()', image);
     return image;
   }
@@ -88,7 +90,9 @@ export class FileStorage {
   delete(identifier: string): boolean {
     let deleteImage: ImageFile = this.imageHash[identifier];
     if (deleteImage) {
+      let url = (new URL(deleteImage.url, location.href)).href;
       deleteImage.destroy();
+      delete this.imageURLHash[url];
       delete this.imageHash[identifier];
       return true;
     }
@@ -101,6 +105,12 @@ export class FileStorage {
     return null;
   }
 
+  getByURL(url: string): ImageFile {
+    let image: ImageFile = this.imageURLHash[url];
+    if (image) return image;
+    return null;
+  }
+  
   synchronize(peer?: string) {
     clearTimeout(this.lazyTimer);
     this.lazyTimer = null;
