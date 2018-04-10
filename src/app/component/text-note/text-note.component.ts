@@ -116,7 +116,7 @@ export class TextNoteComponent implements OnInit {
 
   @HostListener('mousedown', ['$event'])
   onMouseDown(e: any) {
-    if (e.target.tagName === 'A' || e.target.parentNode.tagName === 'A') return;
+    if (e.target.tagName === 'A' || e.target.parentNode.tagName === 'A' || e.target.tagName === 'SUP') return;
     if (this.isSelected) return;
     e.preventDefault();
     this.textNote.toTopmost();

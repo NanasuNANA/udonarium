@@ -176,6 +176,9 @@ textarea.data-element-note, .markdown {
   font-family: Consolas, 'Courier New', Courier, Monaco, monospace !important;
 }
 
+div.markdown {
+    overflow: visible;
+}
 div.markdown p, div.markdown pre {
   margin: 0px;
   padding: 0px;
@@ -195,14 +198,89 @@ div.markdown table {
 div.markdown table th, div.markdown table td {
   border: 1px solid #444;
 }
-div.markdown em {
-  font-family: cursive;
-  font-style: italic;
-}
 div.markdown img {
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 100%;
+  max-height: 100%;
 }
 div.markdown a {
   pointer-events: auto !important;
+}
+div.markdown sup {
+  cursor: pointer;
+  color: blue;
+}
+div.markdown {
+  overflow: visible !important;
+}
+
+/* Tooltip */
+/** See  http://cbracco.me/a-simple-css-tooltip/ **/
+/* Some basic styles */
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    box-sizing:         border-box;
+}
+
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+    position: relative;
+    z-index: 10000;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-bottom: 5px;
+    margin-left: -80px;
+    padding: 3px;
+    max-width: 400px;
+    min-width: 160px;
+    word-wrap: break-word;
+    -webkit-border-radius: 3px;
+    -moz-border-radius:    3px;
+    border-radius:         3px;
+    background-color: #000;
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center; /* center; */
+    font-size: 7px !important;
+    line-height: 1.2;
+    text-shadow: 0px 0px 1px #ccc;
+    box-shadow: 0px 0px 2px #fff;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    visibility: visible;
+    opacity: 0.9;
 }

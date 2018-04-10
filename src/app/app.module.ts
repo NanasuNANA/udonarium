@@ -76,8 +76,13 @@ markedRenderer.link = function(href, title, text) {
   if (prot.indexOf('javascript:') === 0 || prot.indexOf('vbscript:') === 0 || prot.indexOf('data:') === 0) {
     return text;
   }
-  // 必ず target="_blank"
-  var out = '<a target="_blank" href="' + href + '"';
+  
+  if (text.indexOf('^') === 0) {
+    return '<sup data-tooltip="' + href + '">' + text.replace(/^\^/, '') + '</sup>';
+  }
+  
+  // target="_blank"
+  var out = '<a' + ((href.indexOf('mailto:') < 0) ? ' target="_blank"' : '') + ' href="' + href + '"';
   if (title) {
     out += ' title="' + title + '"';
   }

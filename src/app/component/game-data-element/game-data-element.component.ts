@@ -96,7 +96,7 @@ export class GameDataElementComponent implements OnInit, OnDestroy, AfterViewIni
   markdownImageBrobUrlReplace2IdValue(): void {
     if (!this.isTagLocked || !this.gameDataElement) return;
     this.gameDataElement.value = this.gameDataElement.value.toString()
-    .replace(/\!\[(.*?)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*?['"])?\s*\)|^[ \t]*\[(.+?)\]\:\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+['"].*['"])?[ \t]*$/gm, (match: string, ...args: any[]): string => {
+    .replace(/\!\[([^\r\n]*?)\]\(\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+(?:\"[^\r\n]*\"|'[^\r\n]*'))?\s*\)|^\[([^\r\n]+?)\]\:\s*((?:blob\:)?https?\:\/\/[^\s]+?)(\s+(?:\"[^\r\n]*\"|'[^\r\n]*'))?\s*$/gm, (match: string, ...args: any[]): string => {
       let offset = (args[4] && args[4] !== '') ? 3 : 0;
       let url: string = (new URL(args[1 + offset], location.href)).href;
       if (url.indexOf(location.host) < 0) return match;
