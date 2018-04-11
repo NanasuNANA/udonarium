@@ -105,7 +105,7 @@ export class GameDataElementComponent implements OnInit, OnDestroy, AfterViewIni
         let alt: string = args[0 + offset];
         let title: string = args[2 + offset];
         let res = (offset === 0) ? `![${alt}](image:${imageFile.identifier}` : `[${alt}]: image:${imageFile.identifier}`;
-        if (title && title !== '') res += `${title}`;
+        if (title && title !== '') res += title;
         if (offset === 0) res += ')';
         return res;
       }
