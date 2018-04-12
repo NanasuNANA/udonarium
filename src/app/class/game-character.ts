@@ -7,6 +7,12 @@ import { ChatPalette } from './chat-palette';
 @SyncObject('character')
 export class GameCharacter extends TabletopObject {
 
+  get altitude(): number {
+    let element = this.getElement('altitude', this.commonDataElement);
+    let num = element ? +element.value : 0;
+    return Number.isNaN(num) ? 0 : num;
+  }
+  
   get size(): number {
     let element = this.getElement('size', this.commonDataElement);
     let num = element ? +element.value : 0;
@@ -48,6 +54,7 @@ export class GameCharacter extends TabletopObject {
 
     let nameElement: DataElement = DataElement.create('name', name, {}, 'name_' + this.identifier);
     let sizeElement: DataElement = DataElement.create('size', size, {}, 'size_' + this.identifier);
+    let altitudeElement: DataElement = DataElement.create('altitude', 0, { }, 'altitude_' + this.identifier);
 
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
       this.imageDataElement.getFirstElementByName('imageIdentifier').value = imageIdentifier;
@@ -60,10 +67,12 @@ export class GameCharacter extends TabletopObject {
 
     this.commonDataElement.appendChild(nameElement);
     this.commonDataElement.appendChild(sizeElement);
+    this.commonDataElement.appendChild(altitudeElement);
 
     this.detailDataElement.appendChild(resourceElement);
     resourceElement.appendChild(hpElement);
     resourceElement.appendChild(mpElement);
+    //resourceElement.appendChild(altitudeElement);
 
     //TEST
     let testElement: DataElement = DataElement.create('情報', '', {}, '情報' + this.identifier);

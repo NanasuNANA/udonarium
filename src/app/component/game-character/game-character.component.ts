@@ -38,6 +38,7 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
 
   get name(): string { return this.gameCharacter.name; }
   get size(): number { return this.adjustMinBounds(this.gameCharacter.size); }
+  get altitude(): number { return this.adjustMinBounds(this.gameCharacter.altitude, -this.size); }
   get imageFile(): ImageFile { return this.gameCharacter.imageFile; }
 
   private _posX: number = 0;
