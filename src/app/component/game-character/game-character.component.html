@@ -8,7 +8,7 @@
         <div *ngIf="0 < name.length" class="name-tag is-nowrap is-black-background" [ngStyle]="{'transform': 'translateX(-50%) translateX(' + size * gridSize / 2 +'px) translateY('+ (-altitude * gridSize) + 'px)'}">
           <span>{{name}}</span>
         </div>
-        <img class="image" *ngIf="0 < imageFile.url.length" [src]="imageFile.url | safe: 'resourceUrl'" style=";" [ngStyle]="{'filter': 'drop-shadow(0px ' + (altitude * gridSize) + 'px 0px rgba(255, 255, 255, 0.3))', 'transform': 'translateY(' + (-altitude * gridSize) + 'px)'}">
+        <img class="image" *ngIf="0 < imageFile.url.length" [src]="imageFile.url | safe: 'resourceUrl'" [ngStyle]="{'transform': 'translateY(' + (isProne ? '25' : '0') + '%) translateY(' + (-altitude * gridSize) + 'px) rotateZ(' + (isProne ? '-90' : '0') + 'deg)', 'filter': 'drop-shadow(' + (altitude * (!isProne ? 0 : -gridSize)) + 'px ' + (altitude * (isProne ? 0 : gridSize)) + 'px 0px rgba(255, 255, 255, 0.3))'}">
       </div>
     </div>
   </div>

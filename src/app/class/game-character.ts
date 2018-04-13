@@ -26,7 +26,15 @@ export class GameCharacter extends TabletopObject {
     let element = this.getElement('name', this.commonDataElement);
     return element ? <string>element.value : '???';
   }
-
+  
+  get isProne(): boolean {
+    let element = this.getElement('prone', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('prone', 0, { type: 'checkbox' }, 'prone_' + this.identifier));
+    }
+    return element ? (+element.value == 1) : false;
+  }
+  
   get chatPalette(): ChatPalette {
     for (let child of this.children) {
       if (child instanceof ChatPalette) return child;
@@ -58,7 +66,8 @@ export class GameCharacter extends TabletopObject {
     let nameElement: DataElement = DataElement.create('name', name, {}, 'name_' + this.identifier);
     let sizeElement: DataElement = DataElement.create('size', size, {}, 'size_' + this.identifier);
     let altitudeElement: DataElement = DataElement.create('altitude', 0, {}, 'altitude_' + this.identifier);
-
+    let proneElement: DataElement = DataElement.create('prone', 0, { type: 'checkbox' }, 'prone_' + this.identifier);
+    
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
       this.imageDataElement.getFirstElementByName('imageIdentifier').value = imageIdentifier;
       this.imageDataElement.getFirstElementByName('imageIdentifier').update();
@@ -71,6 +80,7 @@ export class GameCharacter extends TabletopObject {
     this.commonDataElement.appendChild(nameElement);
     this.commonDataElement.appendChild(sizeElement);
     this.commonDataElement.appendChild(altitudeElement);
+    this.commonDataElement.appendChild(proneElement);
 
     this.detailDataElement.appendChild(resourceElement);
     resourceElement.appendChild(hpElement);

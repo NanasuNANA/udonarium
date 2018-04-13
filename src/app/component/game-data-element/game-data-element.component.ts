@@ -93,7 +93,7 @@ export class GameDataElementComponent implements OnInit, OnDestroy, AfterViewIni
   setElementType(type: string) {
     this.gameDataElement.setAttribute('type', type);
   }
-  
+
   markdownImageBrobUrlReplace2IdValue(): void {
     if (!this.isTagLocked || !this.gameDataElement) return;
     this.gameDataElement.value = this.gameDataElement.value.toString()
