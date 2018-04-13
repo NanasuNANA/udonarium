@@ -9,6 +9,9 @@ export class GameCharacter extends TabletopObject {
 
   get altitude(): number {
     let element = this.getElement('altitude', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('altitude', 0, {}, 'altitude_' + this.identifier));
+    }
     let num = element ? +element.value : 0;
     return Number.isNaN(num) ? 0 : num;
   }
@@ -54,7 +57,7 @@ export class GameCharacter extends TabletopObject {
 
     let nameElement: DataElement = DataElement.create('name', name, {}, 'name_' + this.identifier);
     let sizeElement: DataElement = DataElement.create('size', size, {}, 'size_' + this.identifier);
-    let altitudeElement: DataElement = DataElement.create('altitude', 0, { }, 'altitude_' + this.identifier);
+    let altitudeElement: DataElement = DataElement.create('altitude', 0, {}, 'altitude_' + this.identifier);
 
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
       this.imageDataElement.getFirstElementByName('imageIdentifier').value = imageIdentifier;
@@ -72,7 +75,6 @@ export class GameCharacter extends TabletopObject {
     this.detailDataElement.appendChild(resourceElement);
     resourceElement.appendChild(hpElement);
     resourceElement.appendChild(mpElement);
-    //resourceElement.appendChild(altitudeElement);
 
     //TEST
     let testElement: DataElement = DataElement.create('情報', '', {}, '情報' + this.identifier);
