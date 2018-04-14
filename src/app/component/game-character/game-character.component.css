@@ -86,10 +86,11 @@
   left: 0;
   right: 0;
   margin: auto;
-
+  transition: all 200ms 0s ease-in-out;
   width: 100%;
   height: auto;
   vertical-align: bottom;
+  
 }
 
 .name-tag {
