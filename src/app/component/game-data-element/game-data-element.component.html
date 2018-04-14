@@ -10,7 +10,8 @@
           <option value="">通常</option>
           <option value="simpleNumber">数値</option>
           <option value="numberResource">リソース</option>
-          <option value="note">ノート</option>
+          <option value="status">状態☑</option>
+         <option value="note">ノート</option>
       </select>
     </div>
     <div class="table-cell table-cell_solid">
@@ -45,8 +46,8 @@
           <ng-container *ngSwitchCase="'simpleNumber'">
             <input style="width:100%; max-width:8em" type="number" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value">
           </ng-container>
-          <ng-container *ngSwitchCase="'checkbox'">
-            <input style="width:80%" type="checkbox" value="{{gameDataElement.name}}" checked="{{gameDataElement.value ? 'checked' : ''}}" (change)="gameDataElement.value = (!gameDataElement.value ? gameDataElement.name : '')">
+          <ng-container *ngSwitchCase="'status'">
+            <input style="width:80%; max-width:8em" type="checkbox" value="{{gameDataElement.name}}" checked="{{gameDataElement.value ? 'checked' : ''}}" (change)="gameDataElement.value = (!gameDataElement.value ? gameDataElement.name : '')">
           </ng-container>
           <ng-container *ngSwitchCase="'note'">
             <textarea class="data-element-note" style="width:100%; min-width:50px; resize:both;" [style.height]="isTagLocked ? '15em' : '5.7em'" (change)="this.markdownImageBrobUrlReplace2IdValue()" [(ngModel)]="gameDataElement.value" placeholder="Note"></textarea>

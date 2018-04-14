@@ -99,6 +99,17 @@
   border-radius: 24px;
   position: absolute;
   top: -30px;
+  text-align: center;
+}
+
+.name-tag .status {
+  font-size: 10px;
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  margin-top: -12px;
+  text-shadow: #000 0 0 1px;
 }
 
 .is-nowrap {

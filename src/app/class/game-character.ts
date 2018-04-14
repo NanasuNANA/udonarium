@@ -35,6 +35,15 @@ export class GameCharacter extends TabletopObject {
     return element ? (+element.value !== 0) : false;
   }
   
+  get status(): String[] {
+    let elements = this.rootDataElement.getElementsByType('status');
+    let result: String[] = [];
+    for (let element of elements) {
+      if (element.value && element.value.toString() && element.name !== 'prone') result.push(element.value.toString());
+    }
+    return result;
+  }
+  
   get chatPalette(): ChatPalette {
     for (let child of this.children) {
       if (child instanceof ChatPalette) return child;
@@ -66,7 +75,7 @@ export class GameCharacter extends TabletopObject {
     let nameElement: DataElement = DataElement.create('name', name, {}, 'name_' + this.identifier);
     let sizeElement: DataElement = DataElement.create('size', size, {}, 'size_' + this.identifier);
     let altitudeElement: DataElement = DataElement.create('altitude', 0, {}, 'altitude_' + this.identifier);
-    let proneElement: DataElement = DataElement.create('prone', '', { type: 'checkbox' }, 'prone_' + this.identifier);
+    let proneElement: DataElement = DataElement.create('prone', '', { type: 'status' }, 'prone_' + this.identifier);
     
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
       this.imageDataElement.getFirstElementByName('imageIdentifier').value = imageIdentifier;

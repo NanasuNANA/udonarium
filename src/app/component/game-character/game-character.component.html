@@ -6,7 +6,7 @@
     <div class="upright-transform is-fit-width is-3d">
       <div class="fill-frame">
         <div *ngIf="0 < name.length" class="name-tag is-nowrap is-black-background" [ngStyle]="{'transform': 'translateX(-50%) translateX(' + size * gridSize / 2 +'px) translateY('+ (-altitude * gridSize) + 'px)'}">
-          <span>{{name}}</span>
+          <span>{{name}}</span><div class="status" *ngIf="0 < status.length">{{status}}</div>
         </div>
         <img class="image" *ngIf="0 < imageFile.url.length" [src]="imageFile.url | safe: 'resourceUrl'" [ngStyle]="{'transform': 'translateY(' + (isProne ? '25' : '0') + '%) translateY(' + (-altitude * gridSize) + 'px) rotateZ(' + (isProne ? '-90' : '0') + 'deg)', 'filter': 'drop-shadow(' + (altitude * (!isProne ? 0 : -gridSize)) + 'px ' + (altitude * (isProne ? 0 : gridSize)) + 'px 0px rgba(255, 255, 255, 0.3))'}">
       </div>
