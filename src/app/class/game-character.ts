@@ -30,9 +30,9 @@ export class GameCharacter extends TabletopObject {
   get isProne(): boolean {
     let element = this.getElement('prone', this.commonDataElement);
     if (!element) {
-      this.commonDataElement.appendChild(DataElement.create('prone', 0, { type: 'checkbox' }, 'prone_' + this.identifier));
+      this.commonDataElement.appendChild(DataElement.create('prone', '', { type: 'checkbox' }, 'prone_' + this.identifier));
     }
-    return element ? (+element.value == 1) : false;
+    return element ? (+element.value !== 0) : false;
   }
   
   get chatPalette(): ChatPalette {
@@ -66,7 +66,7 @@ export class GameCharacter extends TabletopObject {
     let nameElement: DataElement = DataElement.create('name', name, {}, 'name_' + this.identifier);
     let sizeElement: DataElement = DataElement.create('size', size, {}, 'size_' + this.identifier);
     let altitudeElement: DataElement = DataElement.create('altitude', 0, {}, 'altitude_' + this.identifier);
-    let proneElement: DataElement = DataElement.create('prone', 0, { type: 'checkbox' }, 'prone_' + this.identifier);
+    let proneElement: DataElement = DataElement.create('prone', '', { type: 'checkbox' }, 'prone_' + this.identifier);
     
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
       this.imageDataElement.getFirstElementByName('imageIdentifier').value = imageIdentifier;
