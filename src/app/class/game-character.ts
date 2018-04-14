@@ -26,7 +26,7 @@ export class GameCharacter extends TabletopObject {
     let element = this.getElement('name', this.commonDataElement);
     return element ? <string>element.value : '???';
   }
-  
+
   get isProne(): boolean {
     let element = this.getElement('prone', this.commonDataElement);
     if (!element) {
@@ -34,10 +34,23 @@ export class GameCharacter extends TabletopObject {
     }
     return element ? (+element.value !== 0) : false;
   }
-  
-  get status(): String[] {
+
+  get resources(): {name: string; value: number; max: number}[] {
+    let elements = this.rootDataElement.getElementsByType('numberResource');
+    let result: {name: string; value: number; max: number}[] = [];
+    for (let element of elements) {
+      let obj = {name: '', value: 0, max: 0};
+      if (element.name) obj.name = element.name;
+      if (element.currentValue) obj.value = <number>+element.currentValue;
+      if (element.value) obj.max = <number>+element.value;
+      result.push(obj);
+    }
+    return result;
+  }
+
+  get statuses(): string[] {
     let elements = this.rootDataElement.getElementsByType('status');
-    let result: String[] = [];
+    let result: string[] = [];
     for (let element of elements) {
       if (element.value && element.value.toString() && element.name !== 'prone') result.push(element.value.toString());
     }

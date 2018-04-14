@@ -102,14 +102,39 @@
   text-align: center;
 }
 
-.name-tag .status {
-  font-size: 10px;
+.statuses {
+  font-size: 6px;
   color: red;
-  font-weight: bold;
-  text-align: center;
+  text-align: left;
   width: 100%;
-  margin-top: -12px;
-  text-shadow: #000 0 0 1px;
+  margin-top: -13px;
+  font-weight: bolder;
+  text-shadow: #aaa 0 0 0.5px;
+}
+
+.resources {
+  font-size: 8px;
+  color: #ccf;
+  text-align: right;
+  width: 100%;
+  margin-top: -11px;
+  text-shadow: #ccc 0 0 1px;
+}
+
+.resourceName {
+ vertical-align: middle;
+}
+
+.resources sub {
+  font-size: 6px;
+}
+
+.resource {
+  padding-left: 6px;
+}
+
+.exhaustion {
+  color: red;
 }
 
 .is-nowrap {
