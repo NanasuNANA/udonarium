@@ -41,8 +41,9 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
   get altitude(): number { return this.adjustMinBounds(this.gameCharacter.altitude, -this.size); }
   get isProne(): boolean { return this.gameCharacter.isProne; }
   get imageFile(): ImageFile { return this.gameCharacter.imageFile; }
-get resources(): {name: string; value: number; max: number}[] { return this.gameCharacter.resources; }
+  get resources(): {name: string; value: number; max: number}[] { return this.gameCharacter.resources; }
   get statuses(): string[] { return this.gameCharacter.statuses; }
+  get expendables(): {name: string; expended: boolean}[] { return this.gameCharacter.expendables; }
 
   private _posX: number = 0;
   private _posY: number = 0;

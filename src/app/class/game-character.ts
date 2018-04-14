@@ -56,7 +56,16 @@ export class GameCharacter extends TabletopObject {
     }
     return result;
   }
-  
+
+  get expendables(): {name: string; expended: boolean}[] {
+    let elements = this.rootDataElement.getElementsByType('expendable');
+    let result: {name: string; expended: boolean}[] = [];
+    for (let element of elements) {
+      result.push({name: element.name, expended: !element.value});
+    }
+    return result;
+  }
+
   get chatPalette(): ChatPalette {
     for (let child of this.children) {
       if (child instanceof ChatPalette) return child;

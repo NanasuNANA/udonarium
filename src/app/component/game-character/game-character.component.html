@@ -6,6 +6,9 @@
     <div class="upright-transform is-fit-width is-3d">
       <div class="fill-frame">
         <div *ngIf="0 < name.length" class="name-tag is-nowrap is-black-background" [ngStyle]="{'transform': 'translateX(-50%) translateX(' + size * gridSize / 2 +'px) translateY('+ (-altitude * gridSize) + 'px)'}">
+          <div class="expendables" *ngIf="0 < expendables.length">
+              <span *ngFor="let expendable of expendables" class="expendable" [ngClass]="expendable.expended ? 'expended' : ''">{{expendable.name}}</span>
+          </div>
           <span>{{name}}</span>
           <div class="statuses" *ngIf="0 < statuses.length">{{statuses.join(' ')}}</div>
           <div class="resources" *ngIf="0 < resources.length">
