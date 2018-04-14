@@ -30,7 +30,7 @@ export class GameCharacter extends TabletopObject {
   get isProne(): boolean {
     let element = this.getElement('prone', this.commonDataElement);
     if (!element) {
-      this.commonDataElement.appendChild(DataElement.create('prone', '', { type: 'checkbox' }, 'prone_' + this.identifier));
+      this.commonDataElement.appendChild(DataElement.create('prone', '', { type: 'status' }, 'prone_' + this.identifier));
     }
     return element ? (+element.value !== 0) : false;
   }
