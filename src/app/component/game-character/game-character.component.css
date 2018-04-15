@@ -112,6 +112,10 @@
   text-shadow: #333 0 0 0.5px;
 }
 
+.expendable {
+  padding: 0 2px;
+}
+
 .expended {
   color: #666;
   text-decoration: line-through;
@@ -146,7 +150,7 @@
 }
 
 .resource {
-  padding-left: 6px;
+  padding-left: 4px;
 }
 
 .exhaustion {
