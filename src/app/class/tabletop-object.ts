@@ -48,6 +48,45 @@ export class TabletopObject extends ObjectNode {
     return this._imageFile;
   }
 
+  get resources(): {name: string; value: number; max: number}[] {
+    let elements = this.detailDataElement.getElementsByType('numberResource');
+    let result: {name: string; value: number; max: number}[] = [];
+    for (let element of elements) {
+      let obj = {name: '', value: 0, max: 0};
+      if (element.name) obj.name = element.name;
+      if (element.currentValue) obj.value = <number>+element.currentValue;
+      if (element.value) obj.max = <number>+element.value;
+      result.push(obj);
+    }
+    return result;
+  }
+
+  get statuses(): string[] {
+    let elements = this.detailDataElement.getElementsByType('status');
+    let result: string[] = [];
+    for (let element of elements) {
+      if (element.value && element.value.toString()) result.push(element.value.toString());
+    }
+    return result;
+  }
+
+  get expendables(): {name: string; expended: boolean}[] {
+    let elements = this.detailDataElement.getElementsByType('expendable');
+    let result: {name: string; expended: boolean}[] = [];
+    for (let element of elements) {
+      result.push({name: element.name, expended: !element.value});
+    }
+    return result;
+  }
+
+  get firstNote(): {name?: string; text?: string} {
+    let elements = this.detailDataElement.getElementsByType('note');
+    if (elements && elements[0]) {
+      return {name: elements[0].name, text: elements[0].value ? elements[0].value.toString() : null};
+    }
+    return {};
+  }
+
   static createTabletopObject(name: string, identifier?: string): TabletopObject {
 
     let gameObject: TabletopObject = new TabletopObject(identifier);

@@ -62,7 +62,7 @@ export class ChatPaletteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.panelService.title = this.character.name + ' のチャットパレット';
+    this.panelService.title = 'チャットパレット - ' + this.character.name;
     this.chatTabidentifier = this.chatMessageService.chatTabs ? this.chatMessageService.chatTabs[0].identifier : '';
     this.gameType = this.character.chatPalette ? this.character.chatPalette.dicebot : '';
     EventSystem.register(this)

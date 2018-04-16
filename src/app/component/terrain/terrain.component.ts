@@ -48,6 +48,8 @@ export class TerrainComponent implements OnInit, OnDestroy, AfterViewInit {
   get posZ(): number { return this._posZ; }
   set posZ(posZ: number) { this._posZ = posZ; this.setUpdateTimer(); }
 
+  get tooltipInfo(): string { return this.terrain.firstNote.text }
+
   private dragAreaElement: HTMLElement = null;
 
   private pointer: PointerCoordinate = { x: 0, y: 0, z: 0 };

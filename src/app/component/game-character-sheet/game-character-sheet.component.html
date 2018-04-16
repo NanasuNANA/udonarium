@@ -1,5 +1,5 @@
 <button (click)="toggleEditMode()">編集切り替え</button>
-<ng-container *ngIf="!isCard && !isTerrain">
+<ng-container *ngIf="!isCard && !isTerrain && !isCardStack">
   <button (click)="openModal('imageIdentifier')">画像変更</button>
 </ng-container>
 <ng-container *ngIf="isCard">

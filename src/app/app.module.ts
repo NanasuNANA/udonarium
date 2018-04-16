@@ -78,7 +78,7 @@ markedRenderer.link = function(href, title, text) {
   }
   
   if (text.indexOf('^') === 0) {
-    return '<sup data-balloon-length="medium" data-balloon-pos="up" data-balloon="' + href + '">' + text.replace(/^\^/, '') + '</sup>';
+    return '<sup title="" data-balloon-length="medium" data-balloon-pos="up" data-balloon="' + href + '">' + text.replace(/^\^/, '') + '</sup>';
   }
   
   // target="_blank"

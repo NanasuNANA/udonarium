@@ -380,7 +380,7 @@ export class GameTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   createTextNote(potison: PointerCoordinate) {
     console.log('createTextNote');
-    let textNote = TextNote.create('共有メモ', 'テキストを入力してください', 5, 4, 3);
+    let textNote = TextNote.create('共有メモ', '*[Markdown](http://www.markdown.jp/what-is-markdown/ "Markdownとは ・ 日本語Markdownユーザー会")[^1]記法*が使用**可能**\n\n[^1]: 人間が記述しやすい軽量なマークアップ言語の一種\n\n- 1\n- 2\n\n---\n\n```\n　　　　整形済み　の\n　　テ　キ　ス　ト\n```', 5, 4, 3);
 
     let pointer = PointerDeviceService.convertToLocal(potison, this.gameObjects.nativeElement);
     textNote.location.x = pointer.x;

@@ -35,37 +35,6 @@ export class GameCharacter extends TabletopObject {
     return element ? (+element.value !== 0) : false;
   }
 
-  get resources(): {name: string; value: number; max: number}[] {
-    let elements = this.rootDataElement.getElementsByType('numberResource');
-    let result: {name: string; value: number; max: number}[] = [];
-    for (let element of elements) {
-      let obj = {name: '', value: 0, max: 0};
-      if (element.name) obj.name = element.name;
-      if (element.currentValue) obj.value = <number>+element.currentValue;
-      if (element.value) obj.max = <number>+element.value;
-      result.push(obj);
-    }
-    return result;
-  }
-
-  get statuses(): string[] {
-    let elements = this.rootDataElement.getElementsByType('status');
-    let result: string[] = [];
-    for (let element of elements) {
-      if (element.value && element.value.toString() && element.name !== 'prone') result.push(element.value.toString());
-    }
-    return result;
-  }
-
-  get expendables(): {name: string; expended: boolean}[] {
-    let elements = this.rootDataElement.getElementsByType('expendable');
-    let result: {name: string; expended: boolean}[] = [];
-    for (let element of elements) {
-      result.push({name: element.name, expended: !element.value});
-    }
-    return result;
-  }
-
   get chatPalette(): ChatPalette {
     for (let child of this.children) {
       if (child instanceof ChatPalette) return child;
@@ -120,7 +89,7 @@ export class GameCharacter extends TabletopObject {
     //TEST
     let testElement: DataElement = DataElement.create('情報', '', {}, '情報' + this.identifier);
     this.detailDataElement.appendChild(testElement);
-    testElement.appendChild(DataElement.create('説明', 'ここに説明を書く\nあいうえお', { 'type': 'note' }, '説明' + this.identifier));
+    testElement.appendChild(DataElement.create('説明', '最初のノート：ツールチップとして表示される\nあいうえお', { 'type': 'note' }, '説明' + this.identifier));
     testElement.appendChild(DataElement.create('メモ', '任意の文字列\n１\n２\n３\n４\n５', { 'type': 'note' }, 'メモ' + this.identifier));
 
     //TEST

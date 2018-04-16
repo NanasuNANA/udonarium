@@ -14,6 +14,7 @@ import { TabletopObject } from '../../class/tabletop-object';
 import { Card, CardState } from '../../class/card';
 import { Terrain } from '../../class/terrain';
 import { TextNote } from '../../class/text-note';
+import { CardStack } from '../../class/card-stack';
 
 import { Network, EventSystem } from '../../class/core/system/system';
 import { ObjectStore } from '../../class/core/synchronize-object/object-store';
@@ -49,6 +50,10 @@ export class GameCharacterSheetComponent implements OnInit, OnDestroy, AfterView
     return this.tabletopObject instanceof Terrain;
   }
 
+  get isCardStack(): boolean {
+    return this.tabletopObject instanceof CardStack;
+  }
+
   constructor(
     private changeDetector: ChangeDetectorRef,
     //private gameRoomService: GameRoomService,
@@ -59,10 +64,21 @@ export class GameCharacterSheetComponent implements OnInit, OnDestroy, AfterView
   ) { }
 
   ngOnInit() {
-    this.panelService.title = 'キャラクターシート';
-    if (this.tabletopObject instanceof GameCharacter && 0 < this.tabletopObject.name.length) {
+    //this.panelService.title = 'キャラクターシート';
+    if (this.tabletopObject instanceof GameCharacter) {
+      this.panelService.title = 'キャラクターシート'
+    } else {
+      this.panelService.title = '詳細';
+    }
+    if ((this.tabletopObject instanceof GameCharacter 
+       || this.tabletopObject instanceof Terrain 
+       || this.tabletopObject instanceof GameTableMask
+       || this.tabletopObject instanceof Card
+       || this.tabletopObject instanceof CardStack
+      ) && 0 < this.tabletopObject.name.length) {
       this.panelService.title += ' - ' + this.tabletopObject.name;
     }
+
     EventSystem.register(this)
       /*
       .on('SELECT_TABLETOP_OBJECT', 0, event => {

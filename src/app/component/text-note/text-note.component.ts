@@ -33,6 +33,7 @@ export class TextNoteComponent implements OnInit {
   set rotate(rotate: number) { this.textNote.rotate = rotate; }
   get height(): number { return this.adjustMinBounds(this.textNote.height); }
   get width(): number { return this.adjustMinBounds(this.textNote.width); }
+  get tooltipInfo(): string { return this.textNote.firstNote.text }
 
   private _posX: number = 0;
   private _posY: number = 0;
