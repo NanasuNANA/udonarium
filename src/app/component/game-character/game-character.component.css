@@ -108,8 +108,8 @@
   color: #66f;
   width: 100%;
   font-weight: bolder;
-  margin-bottom: -12px;
-  text-shadow: #333 0 0 0.5px;
+  margin-bottom: -10px;
+  text-shadow: #333 0 0 1px;
 }
 
 .expendable {
@@ -129,7 +129,7 @@
   width: 100%;
   margin-top: -13px;
   font-weight: bolder;
-  text-shadow: #aaa 0 0 0.5px;
+  text-shadow: #333 0 0 1px;
 }
 
 .resources {
