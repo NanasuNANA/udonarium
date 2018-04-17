@@ -198,6 +198,14 @@ div.markdown table {
 div.markdown table th, div.markdown table td {
   border: 1px solid #444;
 }
+div.markdown table th {
+  background-color: rgba(216, 194, 145, 0.7);
+}
+div.markdown hr {
+  width: 90%;
+  border: 2px dashed #efe;
+  filter: drop-shadow(0 0 2px #f0dabd);
+}
 div.markdown img {
   max-width: 100%;
   max-height: 100%;
