@@ -39,6 +39,7 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
   get name(): string { return this.gameCharacter.name; }
   get size(): number { return this.adjustMinBounds(this.gameCharacter.size); }
   get altitude(): number { return this.gameCharacter.altitude; }
+  get isInvert(): boolean { return this.gameCharacter.isInvert; }
   get isProne(): boolean { return this.gameCharacter.isProne; }
   get imageFile(): ImageFile { return this.gameCharacter.imageFile; }
   get resources(): {name: string; value: number; max: number}[] { return this.gameCharacter.resources; }
@@ -195,6 +196,10 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
     this.contextMenuService.open(potison, [
       { name: '詳細を表示', action: () => { this.showDetail(this.gameCharacter); } },
       { name: 'チャットパレットを表示', action: () => { this.showChatPalette(this.gameCharacter) } },
+      (this.isInvert ? 
+        { name: '向きを戻す', action: () => { this.gameCharacter.invert = false; } } :
+        { name: '向きを反転する', action: () => { this.gameCharacter.invert = true; } }
+      ),
       (this.isProne ? 
         { name: '起き上がる', action: () => { this.gameCharacter.prone = false; } } :
         { name: '伏せる/転倒する', action: () => { this.gameCharacter.prone = true; } }

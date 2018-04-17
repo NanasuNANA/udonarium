@@ -27,6 +27,23 @@ export class GameCharacter extends TabletopObject {
     return element ? <string>element.value : '???';
   }
 
+  get isInvert(): boolean {
+    let element = this.getElement('invert', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('invert', '', { type: 'status' }, 'invert_' + this.identifier));
+    }
+    return element ? (+element.value !== 0) : false;
+  }
+
+  set invert(isInvert: boolean) {
+    let element = this.getElement('invert', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('invert', isInvert ? 'invert' : '', { type: 'status' }, 'invert_' + this.identifier));
+    } else {
+      element.value = isInvert ? 'invert' : '';
+    }
+  }
+
   get isProne(): boolean {
     let element = this.getElement('prone', this.commonDataElement);
     if (!element) {
@@ -75,6 +92,7 @@ export class GameCharacter extends TabletopObject {
     let nameElement: DataElement = DataElement.create('name', name, {}, 'name_' + this.identifier);
     let sizeElement: DataElement = DataElement.create('size', size, {}, 'size_' + this.identifier);
     let altitudeElement: DataElement = DataElement.create('altitude', 0, {}, 'altitude_' + this.identifier);
+    let invertElement: DataElement = DataElement.create('invert', '', { type: 'status' }, 'invert_' + this.identifier);
     let proneElement: DataElement = DataElement.create('prone', '', { type: 'status' }, 'prone_' + this.identifier);
     
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
@@ -89,6 +107,7 @@ export class GameCharacter extends TabletopObject {
     this.commonDataElement.appendChild(nameElement);
     this.commonDataElement.appendChild(sizeElement);
     this.commonDataElement.appendChild(altitudeElement);
+    this.commonDataElement.appendChild(invertElement);
     this.commonDataElement.appendChild(proneElement);
 
     this.detailDataElement.appendChild(resourceElement);
