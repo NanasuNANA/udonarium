@@ -23,6 +23,12 @@ export class TextNote extends TabletopObject {
     return Number.isNaN(num) ? 1 : num;
   }
 
+  get altitude(): number {
+    let element = this.getElement('altitude', this.commonDataElement);
+    let num = element ? +element.value : 0;
+    return Number.isNaN(num) ? 0 : num;
+  }
+
   get fontSize(): number {
     let element = this.getElement('fontsize', this.commonDataElement);
     let num = element ? +element.value : 0;
@@ -71,6 +77,7 @@ export class TextNote extends TabletopObject {
     object.commonDataElement.appendChild(DataElement.create('width', width, {}, 'width_' + object.identifier));
     object.commonDataElement.appendChild(DataElement.create('height', height, {}, 'height_' + object.identifier));
     object.commonDataElement.appendChild(DataElement.create('fontsize', fontSize, {}, 'fontsize_' + object.identifier));
+    object.commonDataElement.appendChild(DataElement.create('altitude', 0, {}, 'altitude_' + object.identifier));
     object.commonDataElement.appendChild(DataElement.create('title', title, {}, 'title_' + object.identifier));
     object.commonDataElement.appendChild(DataElement.create('text', text, { type: 'note', currentValue: text }, 'text_' + object.identifier));
     object.initialize();

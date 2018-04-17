@@ -1,5 +1,5 @@
 <div #root class="component is-3d is-pointer-events-none" [ngClass]="{'is-transition': !isDragging}"
-  [ngStyle]="{'transform': 'translateX(' + posX + 'px) translateY(' + posY + 'px) translateZ(' + posZ + 'px)'}"
+  [ngStyle]="{'transform': 'translateX(' + posX + 'px) translateY(' + posY + 'px) translateZ(' + ((!posZ || altitude * gridSize > posZ) ? altitude * gridSize : posZ) + 'px)'}"
   [attr.title]="tooltipInfo">
   <div class="component-content is-3d"
     [style.width.px]="width * gridSize"

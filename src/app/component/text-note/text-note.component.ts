@@ -33,6 +33,7 @@ export class TextNoteComponent implements OnInit {
   set rotate(rotate: number) { this.textNote.rotate = rotate; }
   get height(): number { return this.adjustMinBounds(this.textNote.height); }
   get width(): number { return this.adjustMinBounds(this.textNote.width); }
+  get altitude(): number { return this.textNote.altitude; }
   get tooltipInfo(): string { return this.textNote.firstNote.text }
 
   private _posX: number = 0;
@@ -380,7 +381,7 @@ export class TextNoteComponent implements OnInit {
     console.log('onSelectedGameObject <' + gameObject.aliasName + '>', gameObject.identifier);
     EventSystem.trigger('SELECT_TABLETOP_OBJECT', { identifier: gameObject.identifier, className: gameObject.aliasName });
     let coordinate = this.pointerDeviceService.pointers[0];
-let option: PanelOption = { left: coordinate.x - 350, top: coordinate.y - 200, width: 500, height: 520 };
+let option: PanelOption = { left: coordinate.x - 350, top: coordinate.y - 200, width: 500, height: 580 };
     let component = this.panelService.open<GameCharacterSheetComponent>(GameCharacterSheetComponent, option);
     component.tabletopObject = gameObject;
   }

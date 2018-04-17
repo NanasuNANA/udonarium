@@ -195,6 +195,10 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
     this.contextMenuService.open(potison, [
       { name: '詳細を表示', action: () => { this.showDetail(this.gameCharacter); } },
       { name: 'チャットパレットを表示', action: () => { this.showChatPalette(this.gameCharacter) } },
+      (this.isProne ? 
+        { name: '起き上がる', action: () => { this.gameCharacter.prone = false; } } :
+        { name: '伏せる/転倒する', action: () => { this.gameCharacter.prone = true; } }
+      ),
       {
         name: 'コピーを作る', action: () => {
           let cloneObject = this.gameCharacter.clone();

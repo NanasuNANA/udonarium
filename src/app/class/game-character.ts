@@ -35,6 +35,15 @@ export class GameCharacter extends TabletopObject {
     return element ? (+element.value !== 0) : false;
   }
 
+  set prone(isProne: boolean) {
+    let element = this.getElement('prone', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('prone', isProne ? 'prone' : '', { type: 'status' }, 'prone_' + this.identifier));
+    } else {
+      element.value = isProne ? 'prone' : '';
+    }
+  }
+
   get chatPalette(): ChatPalette {
     for (let child of this.children) {
       if (child instanceof ChatPalette) return child;
