@@ -89,7 +89,7 @@ export class GameCharacter extends TabletopObject {
     //TEST
     let testElement: DataElement = DataElement.create('情報', '', {}, '情報' + this.identifier);
     this.detailDataElement.appendChild(testElement);
-    testElement.appendChild(DataElement.create('説明', '最初のノート：ツールチップとして表示される\nあいうえお', { 'type': 'note' }, '説明' + this.identifier));
+    testElement.appendChild(DataElement.create('説明', 'タグのある最初のノートはツールチップとして表示される\nあいうえお', { 'type': 'note' }, '説明' + this.identifier));
     testElement.appendChild(DataElement.create('メモ', '任意の文字列\n１\n２\n３\n４\n５', { 'type': 'note' }, 'メモ' + this.identifier));
 
     //TEST

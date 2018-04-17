@@ -13,7 +13,7 @@
           <span>{{name}}</span>
           <div class="statuses" *ngIf="0 < statuses.length">{{statuses.join(' ')}}</div>
           <div class="resources" *ngIf="0 < resources.length">
-              <span *ngFor="let resource of resources" class="resource" [ngClass]="(resource.value <= 0 || (resource.max && resource.value / resource.max <= 0.1)) ? 'exhaustion' : ''"><span class="resourceName">{{resource.name}}:</span>{{+resource.value}}<sub *ngIf="resource.max == +resource.max && +resource.max != 0">/{{+resource.max}}</sub></span>
+              <span *ngFor="let resource of resources" class="resource" [ngClass]="(resource.value <= 0 || (resource.max && resource.value / resource.max <= 0.1)) ? 'exhaustion' : (resource.max && resource.value / resource.max <= 0.5) ? 'warning' : ''"><span class="resourceName">{{resource.name}}:</span>{{+resource.value}}<sub *ngIf="resource.max == +resource.max && +resource.max != 0">/{{+resource.max}}</sub></span>
           </div>
         </div>
         <img class="image" *ngIf="0 < imageFile.url.length" [src]="imageFile.url | safe: 'resourceUrl'" [ngStyle]="{'transform': 'translateY(' + (isProne ? '25' : '0') + '%) translateY(' + (-altitude * gridSize) + 'px) rotateZ(' + (isProne ? '-90' : '0') + 'deg)', 'filter': 'drop-shadow(' + (altitude * (!isProne ? 0 : -gridSize)) + 'px ' + (altitude * (isProne ? 0 : gridSize)) + 'px 0px rgba(255, 255, 255, 0.3))'}">

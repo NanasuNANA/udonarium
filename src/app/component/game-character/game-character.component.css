@@ -153,6 +153,10 @@
   padding-left: 4px;
 }
 
+.warning {
+  color: yellow;
+}
+
 .exhaustion {
   color: red;
 }
