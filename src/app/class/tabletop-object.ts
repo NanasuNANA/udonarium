@@ -24,7 +24,7 @@ export class TabletopObject extends ObjectNode {
   @SyncVar() posZ: number = 0;
 
   private _imageFile: ImageFile = ImageFile.createEmpty('null');
-  private _dataElements: { [name: string]: DataElement } = {};
+  private _dataElements: { [name: string]: string } = {};
 
   // GameDataElement getter/setter
   get rootDataElement(): DataElement {
@@ -125,19 +125,43 @@ export class TabletopObject extends ObjectNode {
   }
 
   getElement(name: string, from: DataElement = this.rootDataElement): DataElement {
-    //if (!from) return null;
-    /*
-    if (this._dataElements[name] && this._dataElements[name].parent && this._dataElements[name].parent.identifier !== from.identifier) {
-      this._dataElements[name] = null;
+    if (!from) return null;
+    let element: DataElement = this._dataElements[name] ? ObjectStore.instance.get(this._dataElements[name]) : null;
+    if (!element || !from.contains(element)) {
+      element = from.getFirstElementByName(name);
+      this._dataElements[name] = element ? element.identifier : null;
     }
-    */
-    if (!this._dataElements[name] && from) {
-      let element: DataElement = from.getFirstElementByName(name);
-      if (element) {
-        this._dataElements[name] = element;
-      }
+    return element;
+  }
+
+  protected getCommonValue<T extends string | number>(elementName: string, defaultValue: T): T {
+    let element = this.getElement(elementName, this.commonDataElement);
+    if (!element) return defaultValue;
+
+    if (typeof defaultValue === 'number') {
+      let number: number = +element.value;
+      return <T>(Number.isNaN(number) ? defaultValue : number);
+    } else {
+      return <T>(element.value + '');
     }
-    return this._dataElements[name] ? this._dataElements[name] : null;
+  }
+
+  protected setCommonValue(elementName: string, value: any) {
+    let element = this.getElement(elementName, this.commonDataElement);
+    if (!element) { return; }
+    element.value = value;
+  }
+
+  protected getImageFile(elementName: string) {
+    if (!this.imageDataElement) return null;
+    let image = this.getElement(elementName, this.imageDataElement);
+    return image ? FileStorage.instance.get(<string>image.value) : null;
+  }
+
+  protected setImageFile(elementName: string, imageFile: ImageFile) {
+    let image = imageFile ? this.getElement(elementName, this.imageDataElement) : null;
+    if (!image) return;
+    image.value = imageFile.identifier;
   }
 
   setLocation(location: string) {

@@ -2,7 +2,7 @@ import { GameObject } from './game-object';
 
 export declare var Type: FunctionConstructor;
 export interface Type<T> extends Function {
-  new (...args: any[]): T;
+  new(...args: any[]): T;
 }
 
 export class ObjectFactory {
@@ -32,11 +32,13 @@ export class ObjectFactory {
     return <T>gameObject;
   }
 
-  getAlias<T extends GameObject>(object: T): string {
+  getAlias<T extends GameObject>(constructor: Type<T>): string
+  getAlias<T extends GameObject>(object: T): string
+  getAlias<T extends GameObject>(arg: any): string {
+    let classConstructor: Type<T> = typeof arg === 'function' ? arg : arg.constructor;
     for (let alias in this.classConstructors) {
-      if (this.classConstructors[alias] === object.constructor) return alias;
+      if (this.classConstructors[alias] === classConstructor) return alias;
     }
     return '';
   }
 }
-setTimeout(function () { ObjectFactory.instance; }, 0);

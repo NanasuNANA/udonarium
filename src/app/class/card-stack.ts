@@ -14,6 +14,14 @@ export class CardStack extends TabletopObject {
   @SyncVar() rotate: number = 0;
   @SyncVar() zindex: number = 0;
   @SyncVar() owner: string = '';
+  @SyncVar() isShowTotal: boolean = true;
+
+  get name(): string { return this.getCommonValue('name', ''); }
+  get ownerName(): string {
+    let object = PeerCursor.find(this.owner);
+    return object ? object.name : '';
+  }
+  get hasOwner(): boolean { return PeerCursor.find(this.owner) != null; }
 
   private get cardRoot(): ObjectNode {
     for (let node of this.children) {
@@ -21,21 +29,6 @@ export class CardStack extends TabletopObject {
     }
     return null;
   }
-
-  get hasOwner(): boolean {
-    return PeerCursor.find(this.owner) != null;//ObjectStore.instance.get<PeerCursor>(this.owner) != null;
-  }
-
-  get ownerName(): string {
-    let object = PeerCursor.find(this.owner);//ObjectStore.instance.get<PeerCursor>(this.owner);
-    return object ? object.name : '';
-  }
-
-  get name(): string {
-    let element = this.getElement('name', this.commonDataElement);
-    return element ? <string>element.value : '';
-  }
-
   get cards(): Card[] { return this.cardRoot ? <Card[]>this.cardRoot.children.concat() : []; }
   get topCard(): Card { return this.isEmpty ? null : this.cards[0]; }
   get isEmpty(): boolean { return this.cards.length < 1 }

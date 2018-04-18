@@ -82,6 +82,7 @@ export class FileArchiver {
       await this.handleAudio(files[i]);
       this.handleText(files[i]);
       await this.handleZip(files[i]);
+      EventSystem.trigger('FILE_LOADED', { file: files[i] });
     }
   }
 
@@ -153,4 +154,3 @@ export class FileArchiver {
     }).then(blob => saveAs(blob, zipName + '.zip'));
   }
 }
-setTimeout(function () { FileArchiver.instance; }, 0);

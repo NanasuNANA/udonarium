@@ -1,10 +1,8 @@
-<div #root class="component is-3d is-pointer-events-none" [ngClass]="{'is-transition': !isDragging}"
-  [ngStyle]="{'transform': 'translateX(' + posX + 'px) translateY(' + posY + 'px) translateZ(' + ((!posZ || altitude * gridSize > posZ) ? altitude * gridSize : posZ) + 'px)'}"
-  [attr.title]="tooltipInfo">
-  <div class="component-content is-3d"
+<div class="component is-3d is-pointer-events-none"
+  appMovable [movable.option]="movableOption" [attr.title]="tooltipInfo">
+  <div class="component-content is-3d is-pointer-events-auto"
     [style.width.px]="width * gridSize"
-    [ngStyle]="{'transform': 'translateX(-50%) rotateZ(' + rotate +'deg)'}" 
-    [ngClass]="{'is-grab': (!isDragging), 'is-grabbing': (isDragging), 'is-transition': !isDragging, 'is-pointer-events-none': isDragging || isPointerDragging, 'is-pointer-events-auto': !isDragging && !isPointerDragging}">
+    appRotable [rotable.option]="rotableOption">
     <div class="upright-transform is-3d is-bg-color is-bg-texture"
       [style.background-image]="'url(' + imageFile?.url + ')' | safe: 'style'" [style.width.px]="width * gridSize" [style.min-height.px]="height * gridSize">
       <div *ngIf="title.length" class="title is-black-background is-pointer-events-none">{{title}}</div>
@@ -13,10 +11,10 @@
       <div (input)="calcFitHeight();" class="markdown is-outline-text" #markdownArea style="margin-top:-13px" [ngClass]="{'markdown-area-show': isSelected}"
         [style.font-size.px]="fontSize + 9" [innerHTML]="this.markdownCompile(text) | safe"></div>
     </div>
-    <div class="rotate-grab of-left-top" (mousedown)="onRotateMouseDown($event)">
+    <div class="rotate-grab of-left-top">
       <i class="material-icons">autorenew</i>
     </div>
-    <div class="rotate-grab of-right-top" (mousedown)="onRotateMouseDown($event)">
+    <div class="rotate-grab of-right-top">
       <i class="material-icons">autorenew</i>
     </div>
   </div>

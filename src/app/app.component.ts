@@ -64,18 +64,19 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     private ngZone: NgZone
   ) {
 
-    EventSystem;
-    Network;
-    FileArchiver.instance.initialize();
-    FileSharingSystem.instance.initialize();
-    FileStorage.instance;
-    AudioSharingSystem.instance.initialize();
-    AudioStorage.instance;
-    ObjectFactory.instance;
-    ObjectSerializer.instance;
-    ObjectStore.instance;
-    ObjectSynchronizer.instance.initialize();
-
+    this.ngZone.runOutsideAngular(() => {
+      EventSystem;
+      Network;
+      FileArchiver.instance.initialize();
+      FileSharingSystem.instance.initialize();
+      FileStorage.instance;
+      AudioSharingSystem.instance.initialize();
+      AudioStorage.instance;
+      ObjectFactory.instance;
+      ObjectSerializer.instance;
+      ObjectStore.instance;
+      ObjectSynchronizer.instance.initialize();
+    });
     appConfigService.initialize();
     pointerDeviceService.initialize();
     //Network.open();
@@ -112,12 +113,12 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     PeerCursor.myCursor.imageIdentifier = noneIconImage.identifier;
 
     EventSystem.register(this)
-      .on('*', () => {
-        if (this.lazyUpdateTimer === null) {
+      .on('*', event => {
+        if (!event.isSendFromSelf && this.lazyUpdateTimer === null) {
           this.lazyUpdateTimer = setTimeout(() => {
             this.lazyUpdateTimer = null;
             this.ngZone.run(() => { });
-          }, 33);
+          }, 100);
         }
       }).on<AppConfig>('LOAD_CONFIG', 0, event => {
         console.log('LOAD_CONFIG !!!', event.data);
@@ -132,6 +133,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         }
         Network.setApiKey(event.data.webrtc.key);
         Network.open();
+      }).on<AppConfig>('FILE_LOADED', 0, event => {
+        this.lazyUpdateTimer = setTimeout(() => {
+          this.lazyUpdateTimer = null;
+          this.ngZone.run(() => { });
+        }, 100);
       })
       .on('OPEN_PEER', 0, event => {
         console.log('OPEN_PEER', event.data.peer);
@@ -157,7 +163,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   open(componentName: string) {
-    let component: { new (...args: any[]): any } = null;
+    let component: { new(...args: any[]): any } = null;
     let option: PanelOption = { width: 450, height: 600, left: 100 }
     switch (componentName) {
       case 'PeerMenuComponent':

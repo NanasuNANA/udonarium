@@ -2,6 +2,11 @@ import { GameObject, ObjectContext } from './game-object';
 import { ObjectFactory, Type } from './object-factory';
 import { EventSystem } from '../system/system';
 
+interface DeletedObjectContext {
+  aliasName: string;
+  timeStamp: number;
+}
+
 export class ObjectStore {
   private static _instance: ObjectStore
   static get instance(): ObjectStore {
@@ -12,7 +17,7 @@ export class ObjectStore {
   private identifierHash: { [identifier: string]: GameObject } = {};
   private classHash: { [aliasName: string]: GameObject[] } = {};
   //private garbageHash: { [identifier: string]: { context: ObjectContext, timeStamp: number } } = {};
-  private garbageHash: { [identifier: string]: { aliasName: string, timeStamp: number } } = {};
+  private garbageHash: { [identifier: string]: DeletedObjectContext } = {};
 
   private queue: { [identifier: string]: ObjectContext } = {};
   private updateInterval: NodeJS.Timer = null;
@@ -46,7 +51,7 @@ export class ObjectStore {
     //let garbage = object.toContext();
     /* */
     if (needCallEvent) {
-      this.garbageHash[object.identifier] = { aliasName: object.identifier, timeStamp: performance.now() };
+      this.garbageHash[object.identifier] = { aliasName: object.aliasName, timeStamp: performance.now() };
       EventSystem.call('DELETE_GAME_OBJECT', { identifier: object.identifier });
     }
     return object;
@@ -89,10 +94,10 @@ export class ObjectStore {
     return <T[]>this.classHash[aliasName];
   }
 
-  getDeletedObject(identifier: string): string {
+  getDeletedObject(identifier: string): DeletedObjectContext {
     this.garbageCollection(10 * 60 * 1000);
     let garbage = this.garbageHash[identifier];
-    return garbage ? garbage.aliasName : null;
+    return garbage ? garbage : null;
   }
 
   update(identifier: string)
@@ -160,4 +165,3 @@ export class ObjectStore {
     }
   }
 }
-setTimeout(function () { ObjectStore.instance; }, 0);

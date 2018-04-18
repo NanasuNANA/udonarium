@@ -54,7 +54,7 @@
             <input style="width:80%; max-width:4em" type="checkbox" value="{{gameDataElement.name}}" checked="{{!gameDataElement.value ? 'checked' : ''}}" (change)="gameDataElement.value = (!gameDataElement.value ? gameDataElement.name : '')">
           </ng-container>
           <ng-container *ngSwitchCase="'note'">
-            <textarea class="data-element-note" style="width:100%; min-width:50px; resize:both;" [style.height]="isTagLocked ? '15em' : '5.7em'" (change)="this.markdownImageBrobUrlReplace2IdValue()" [(ngModel)]="gameDataElement.value" placeholder="Note"></textarea>
+            <textarea class="data-element-note" style="width:100%; min-width:50px; resize:both;" [style.height]="isTagLocked ? '18em' : '5.7em'" (change)="this.markdownImageBrobUrlReplace2IdValue()" [(ngModel)]="gameDataElement.value" placeholder="Note"></textarea>
           </ng-container>
           <ng-container *ngSwitchDefault>
             <!--<input style="width:100%;" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value"/>-->

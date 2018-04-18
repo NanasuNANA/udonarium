@@ -11,45 +11,14 @@ export class TextNote extends TabletopObject {
   @SyncVar() zindex: number = 0;
   @SyncVar() password: string = '';
 
-  get width(): number {
-    let element = this.getElement('width', this.commonDataElement);
-    let num = element ? +element.value : 0;
-    return Number.isNaN(num) ? 1 : num;
-  }
-
-  get height(): number {
-    let element = this.getElement('height', this.commonDataElement);
-    let num = element ? +element.value : 0;
-    return Number.isNaN(num) ? 1 : num;
-  }
-
-  get altitude(): number {
-    let element = this.getElement('altitude', this.commonDataElement);
-    let num = element ? +element.value : 0;
-    return Number.isNaN(num) ? 0 : num;
-  }
-
-  get fontSize(): number {
-    let element = this.getElement('fontsize', this.commonDataElement);
-    let num = element ? +element.value : 0;
-    return Number.isNaN(num) ? 1 : num;
-  }
-
-  get title(): string {
-    let element = this.getElement('title', this.commonDataElement);
-    return element ? <string>element.value : '';
-  }
-
-  get text(): string {
-    let element = this.getElement('text', this.commonDataElement);
-    return element ? <string>element.value : '';
-  }
-
-  set text(text: string) {
-    let element = this.getElement('text', this.commonDataElement);
-    if (!element) return;
-    element.value = this.markdownImageBrobUrlReplace2Id(text);
-  }
+  get width(): number { return this.getCommonValue('width', 1); }
+  get height(): number { return this.getCommonValue('height', 1); }
+  get fontSize(): number { return this.getCommonValue('fontsize', 1); }
+  get title(): string { return this.getCommonValue('title', ''); }
+  get text(): string { return this.getCommonValue('text', ''); }
+  set text(text: string) { this.setCommonValue('text', text); }
+  
+  get altitude(): number { return this.getCommonValue('altitude', 0); }
 
   toTopmost() {
     let object: any[] = ObjectStore.instance.getObjects('text-note');
@@ -77,7 +46,7 @@ export class TextNote extends TabletopObject {
     object.commonDataElement.appendChild(DataElement.create('width', width, {}, 'width_' + object.identifier));
     object.commonDataElement.appendChild(DataElement.create('height', height, {}, 'height_' + object.identifier));
     object.commonDataElement.appendChild(DataElement.create('fontsize', fontSize, {}, 'fontsize_' + object.identifier));
-    object.commonDataElement.appendChild(DataElement.create('altitude', 0, {}, 'altitude_' + object.identifier));
+    //object.commonDataElement.appendChild(DataElement.create('altitude', 0, {}, 'altitude_' + object.identifier));
     object.commonDataElement.appendChild(DataElement.create('title', title, {}, 'title_' + object.identifier));
     object.commonDataElement.appendChild(DataElement.create('text', text, { type: 'note', currentValue: text }, 'text_' + object.identifier));
     object.initialize();

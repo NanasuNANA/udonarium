@@ -45,6 +45,10 @@ import { ModalService } from './service/modal.service';
 import { PanelService } from './service/panel.service';
 import { PointerDeviceService } from './service/pointer-device.service';
 
+import { TabletopService } from './service/tabletop.service';
+import { MovableDirective } from './directive/movable.directive';
+import { RotableDirective } from './directive/rotable.directive';
+
 import { FileStorage } from './class/core/file-storage/file-storage';
 import { ImageFile } from './class/core/file-storage/image-file';
 
@@ -90,7 +94,6 @@ markedRenderer.link = function(href, title, text) {
   return out;
 };
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -125,6 +128,8 @@ markedRenderer.link = function(href, title, text) {
     TerrainComponent,
     PeerCursorComponent,
     TextNoteComponent,
+    MovableDirective,
+    RotableDirective,
   ],
   imports: [
     BrowserModule,
@@ -151,6 +156,7 @@ markedRenderer.link = function(href, title, text) {
     ModalService,
     PanelService,
     PointerDeviceService,
+    TabletopService,
   ],
   entryComponents: [
     ModalComponent,
