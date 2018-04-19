@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Directive, Input, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter, ElementRef, SimpleChanges } from '@angular/core';
 
 import { EventSystem } from '../class/core/system/system';
 import { TabletopObject } from '../class/tabletop-object';
@@ -11,6 +11,7 @@ export interface MovableOption {
   layerName?: string;
   colideLayers?: string[];
   transformCssOffset?: string;
+  updateTransformCssFunction?: (posX: number, posY: number, posZ: number, others: {}) => string;
 }
 
 @Directive({
@@ -22,13 +23,16 @@ export class MovableDirective extends Grabbable implements OnInit, OnDestroy, Af
   private layerName: string = '';
   private colideLayers: string[] = [];
   private transformCssOffset: string = '';
+  private updateTransformCssFunction: (posX: number, posY: number, posZ: number, others: {}) => string = null;
   @Input('movable.option') set option(option: MovableOption) {
     this.tabletopObject = option.tabletopObject != null ? option.tabletopObject : this.tabletopObject;
     this.layerName = option.layerName != null ? option.layerName : this.layerName;
     this.colideLayers = option.colideLayers != null ? option.colideLayers : this.colideLayers;
     this.transformCssOffset = option.transformCssOffset != null ? option.transformCssOffset : this.transformCssOffset;
+    this.updateTransformCssFunction = option.updateTransformCssFunction != null ? option.updateTransformCssFunction : this.updateTransformCssFunction;
   }
   @Input('movable.disable') isDisable: boolean = false;
+  @Input('movable.others') others = {};
   @Output('movable.onstart') onstart: EventEmitter<PointerEvent> = new EventEmitter();
   @Output('movable.ondrag') ondrag: EventEmitter<PointerEvent> = new EventEmitter();
   @Output('movable.onend') onend: EventEmitter<PointerEvent> = new EventEmitter();
@@ -67,6 +71,10 @@ export class MovableDirective extends Grabbable implements OnInit, OnDestroy, Af
 
   ngOnInit() { }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.others) this.updateTransformCss();
+  }
+  
   ngAfterViewInit() {
     EventSystem.register(this)
       .on('UPDATE_GAME_OBJECT', -1000, event => {
@@ -257,8 +265,9 @@ export class MovableDirective extends Grabbable implements OnInit, OnDestroy, Af
 
   private updateTransformCss() {
     if (!this.transformElement) return;
-    let css = this.transformCssOffset + ' translateX(' + this.posX + 'px) translateY(' + this.posY + 'px) translateZ(' + this.posZ + 'px)';
-    this.transformElement.style.transform = css;
+    let css = this.transformCssOffset + ' ';
+    css += this.updateTransformCssFunction ? this.updateTransformCssFunction(this.posX, this.posY, this.posZ, this.others) : 'translateX(' + this.posX + 'px) translateY(' + this.posY + 'px) translateZ(' + this.posZ + 'px)';
+    this.transformElement.style.transform = css;                                                   
   }
 
   private setCollidableLayer(isCollidable: boolean) {

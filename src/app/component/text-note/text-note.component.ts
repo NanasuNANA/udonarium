@@ -63,7 +63,8 @@ export class TextNoteComponent implements OnInit {
   ngOnInit() {
     this.movableOption = {
       tabletopObject: this.textNote,
-      colideLayers: ['terrain']
+      colideLayers: ['terrain'],
+      updateTransformCssFunction: (posX: number, posY: number, posZ: number, others: {}) => { return 'translateX(' + posX + 'px) translateY(' + posY + 'px) translateZ(' + ((!posZ || others['altitude'] * this.gridSize > posZ) ? others['altitude'] * this.gridSize : posZ) + 'px)' }
     };
     this.rotableOption = {
       tabletopObject: this.textNote

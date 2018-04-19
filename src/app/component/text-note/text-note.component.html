@@ -1,5 +1,5 @@
 <div class="component is-3d is-pointer-events-none"
-  appMovable [movable.option]="movableOption" [attr.title]="tooltipInfo">
+  appMovable [movable.option]="movableOption" [movable.others]="{'altitude': altitude}" [attr.title]="tooltipInfo">
   <div class="component-content is-3d is-pointer-events-auto"
     [style.width.px]="width * gridSize"
     appRotable [rotable.option]="rotableOption">
