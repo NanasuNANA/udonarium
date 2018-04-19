@@ -18,11 +18,20 @@ export class Terrain extends TabletopObject {
   @SyncVar() mode: TerrainViewState = TerrainViewState.ALL;
   @SyncVar() rotate: number = 0;
 
-  get width(): number { return this.getCommonValue('width', 1); }
+  get width(): number {
+    let num = this.getCommonValue('width', 1);
+    return num <= 0 && (this.height <= 0 || this.depth <= 0) ? 0.1 : num; 
+  }
   set width(width: number) { this.setCommonValue('width', width); }
-  get height(): number { return this.getCommonValue('height', 1); }
+  get height(): number {
+    let num = this.getCommonValue('height', 1);
+    return num <= 0 && (this.width <= 0 || this.depth <= 0) ? 0.1 : num;
+  }
   set height(height: number) { this.setCommonValue('height', height); }
-  get depth(): number { return this.getCommonValue('depth', 1); }
+  get depth(): number {
+    let num = this.getCommonValue('depth', 1);
+    return num <= 0 && (this.width <= 0 || this.height <= 0) ? 0.1 : num;
+  }
   set depth(depth: number) { this.setCommonValue('depth', depth); }
   get name(): string { return this.getCommonValue('name', ''); }
   set name(name: string) { this.setCommonValue('name', name); }
