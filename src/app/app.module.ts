@@ -13,6 +13,7 @@ import { CardStackListComponent } from './component/card-stack-list/card-stack-l
 import { ChatMessageComponent } from './component/chat-message/chat-message.component';
 import { ChatPaletteComponent } from './component/chat-palette/chat-palette.component';
 import { ChatTabComponent } from './component/chat-tab/chat-tab.component';
+import { ChatTabSettingComponent } from './component/chat-tab-setting/chat-tab-setting.component';
 import { ChatWindowComponent } from './component/chat-window/chat-window.component';
 import { ContextMenuComponent } from './component/context-menu/context-menu.component';
 import { FileSelecterComponent } from './component/file-selecter/file-selecter.component';
@@ -103,6 +104,7 @@ markedRenderer.link = function(href, title, text) {
     ChatMessageComponent,
     ChatPaletteComponent,
     ChatTabComponent,
+    ChatTabSettingComponent,
     ChatWindowComponent,
     ContextMenuComponent,
     FileSelecterComponent,
@@ -166,6 +168,7 @@ markedRenderer.link = function(href, title, text) {
     GameObjectInventoryComponent,
     ChatPaletteComponent,
     CardStackListComponent,
+    ChatTabSettingComponent,
     ChatWindowComponent,
     ContextMenuComponent,
     GameTableSettingComponent,
