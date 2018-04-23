@@ -358,13 +358,6 @@ export class GameTableComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.needUpdateList[GameTableMask.aliasName]) {
       this.needUpdateList[GameTableMask.aliasName] = true;
       let viewTable = this.tableSelecter.viewTable;
-      if (viewTable) {
-        let orphans = ObjectStore.instance.getObjects<GameTableMask>(GameTableMask).filter((obj) => { return !(obj.parent instanceof GameTable) });
-        console.log('orphans: ' + orphans);
-        for (let orphan of orphans) {
-          viewTable.appendChild(orphan);
-        }
-      }
       this._gameTableMasks = viewTable ? viewTable.masks : [];
     }
     if (!this.needUpdateList[Card.aliasName]) {
@@ -378,13 +371,6 @@ export class GameTableComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.needUpdateList[Terrain.aliasName]) {
       this.needUpdateList[Terrain.aliasName] = true;
       let viewTable = this.tableSelecter.viewTable;
-      if (viewTable) {
-        let orphans = ObjectStore.instance.getObjects<Terrain>(Terrain).filter((obj) => { return !(obj.parent instanceof GameTable) });
-        console.log('orphans: ' + orphans);
-        for (let orphan of orphans) {
-          viewTable.appendChild(orphan);
-        }
-      }
       this._terrains = viewTable ? viewTable.terrains : [];
     }
     if (!this.needUpdateList[PeerCursor.aliasName]) {
