@@ -1,9 +1,13 @@
 <div class="component is-3d is-grab"
   [style.width.px]="size * gridSize" [style.height.px]="size * gridSize"
   appMovable [movable.option]="movableOption" [attr.title]="tooltipInfo">
-  <div class="component-content is-3d" [@bounceInOut]="'in'">
+  <div class="component-content is-3d" [@bounceInOut]="'in'" >
     <div class="pedestal-inner"></div>
     <div class="pedestal-outer"></div>
+    <div [ngClass]="isIndicateDirection ? 'rotate-grab pedestal-invisible' : ''" appRotable [rotable.option]="rotableOption">
+      <span [ngClass]="isIndicateDirection ? 'rotate-grab facing' : ''"></span>
+      <span [ngClass]="isIndicateDirection ? 'rotate-grab hip' : ''"></span>
+    </div>
     <div class="upright-transform is-fit-width is-3d">
       <div class="fill-frame">
         <div *ngIf="0 < name.length" class="name-tag is-nowrap is-black-background" [ngStyle]="{'transform': 'translateX(-50%) translateX(' + size * gridSize / 2 +'px) translateY('+ (-altitude * gridSize) + 'px)'}">

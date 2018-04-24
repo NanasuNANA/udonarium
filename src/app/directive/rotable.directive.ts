@@ -14,6 +14,7 @@ export interface RotableOption {
   tabletopObject?: RotableTabletopObject;
   grabbingSelecter?: string;
   transformCssOffset?: string;
+  polygonal?: number;
 }
 
 @Directive({
@@ -24,10 +25,12 @@ export class RotableDirective extends Grabbable implements OnInit, OnDestroy, Af
 
   private transformCssOffset: string = '';
   private grabbingSelecter: string = '.rotate-grab';
+  private polygonal: number = 24;
   @Input('rotable.option') set option(option: RotableOption) {
     this.tabletopObject = option.tabletopObject != null ? option.tabletopObject : this.tabletopObject;
     this.grabbingSelecter = option.grabbingSelecter != null ? option.grabbingSelecter : this.grabbingSelecter;
     this.transformCssOffset = option.transformCssOffset != null ? option.transformCssOffset : this.transformCssOffset;
+    this.polygonal = option.polygonal != null ? option.polygonal : this.polygonal;
   }
   @Input('rotable.disable') isDisable: boolean = false;
   @Output('rotable.onstart') onstart: EventEmitter<PointerEvent> = new EventEmitter();
@@ -120,14 +123,14 @@ export class RotableDirective extends Grabbable implements OnInit, OnDestroy, Af
     if (this.isDisable) return this.cancel();
     e.preventDefault();
     this.cancel();
-    this.stickToPolygonal();
+    this.stickToPolygonal(this.polygonal);
   }
 
   protected onContextMenu(e: PointerEvent) {
     if (this.isDisable) return this.cancel();
     e.preventDefault();
     this.cancel();
-    this.stickToPolygonal();
+    this.stickToPolygonal(this.polygonal);
   }
 
   private calcRotate(pointer: PointerCoordinate, rotateOffset: number): number {

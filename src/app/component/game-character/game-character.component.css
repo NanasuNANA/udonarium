@@ -61,6 +61,42 @@
   border-radius: 25px;
 }
 
+.pedestal-invisible {
+  backface-visibility: hidden;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 50%;
+}
+
+.pedestal-invisible:hover {
+  border: 1px solid red;
+}
+
+.facing {
+  width: 0;
+  height: 0;
+  border: solid 8px transparent;
+  border-right: solid 12px red;
+  position: absolute;
+  top: 50%;
+  left: -13px;
+  margin-top: -8px;
+}
+
+.hip {
+  width: 0;
+  height: 0;
+  border: solid 6px transparent;
+  border-right: solid 10px red;
+  position: absolute;
+  top: 50%;
+  right: -4px;
+  margin-top: -6px;
+}
+
 .upright-transform {
   bottom: 50%;
   left: 0;

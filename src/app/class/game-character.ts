@@ -1,4 +1,4 @@
-import { SyncObject } from './core/synchronize-object/anotation';
+import { SyncObject, SyncVar } from './core/synchronize-object/anotation';
 import { GameObject } from './core/synchronize-object/game-object';
 import { DataElement } from './data-element';
 import { TabletopObject } from './tabletop-object';
@@ -6,6 +6,7 @@ import { ChatPalette } from './chat-palette';
 
 @SyncObject('character')
 export class GameCharacter extends TabletopObject {
+  @SyncVar() rotate: number = 0;
 
   get altitude(): number {
     let element = this.getElement('altitude', this.commonDataElement);
@@ -53,6 +54,23 @@ export class GameCharacter extends TabletopObject {
     }
   }
 
+  get isIndicateDirection(): boolean {
+    let element = this.getElement('direction', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('direction', 'direction', { type: 'status' }, 'direction_' + this.identifier));
+    }
+    return element ? (+element.value !== 0) : false;
+  }
+
+  set indicateDirection(isIndicateDirection: boolean) {
+    let element = this.getElement('direction', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('direction', isIndicateDirection ? '' : '', { type: 'status' }, 'direction_' + this.identifier));
+    } else {
+      element.value = isIndicateDirection ? 'direction' : '';
+    }
+  }
+
   get chatPalette(): ChatPalette {
     for (let child of this.children) {
       if (child instanceof ChatPalette) return child;
@@ -86,7 +104,8 @@ export class GameCharacter extends TabletopObject {
     let altitudeElement: DataElement = DataElement.create('altitude', 0, {}, 'altitude_' + this.identifier);
     let invertElement: DataElement = DataElement.create('invert', '', { type: 'status' }, 'invert_' + this.identifier);
     let proneElement: DataElement = DataElement.create('prone', '', { type: 'status' }, 'prone_' + this.identifier);
-    
+    let indicateDirectionElement: DataElement = DataElement.create('direction', '', { type: 'status' }, 'direction_' + this.identifier);
+
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
       this.imageDataElement.getFirstElementByName('imageIdentifier').value = imageIdentifier;
       this.imageDataElement.getFirstElementByName('imageIdentifier').update();
@@ -101,6 +120,7 @@ export class GameCharacter extends TabletopObject {
     this.commonDataElement.appendChild(altitudeElement);
     this.commonDataElement.appendChild(invertElement);
     this.commonDataElement.appendChild(proneElement);
+    this.commonDataElement.appendChild(indicateDirectionElement);
 
     this.detailDataElement.appendChild(resourceElement);
     resourceElement.appendChild(hpElement);

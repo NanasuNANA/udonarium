@@ -10,6 +10,7 @@ import { PointerCoordinate, PointerDeviceService } from '../../service/pointer-d
 import { ChatPaletteComponent } from '../chat-palette/chat-palette.component';
 import { GameCharacterSheetComponent } from '../game-character-sheet/game-character-sheet.component';
 import { MovableOption } from '../../directive/movable.directive';
+import { RotableOption } from '../../directive/rotable.directive';
 
 @Component({
   selector: 'game-character',
@@ -42,6 +43,7 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
   get altitude(): number { return this.gameCharacter.altitude; }
   get isInvert(): boolean { return this.gameCharacter.isInvert; }
   get isProne(): boolean { return this.gameCharacter.isProne; }
+  get isIndicateDirection(): boolean { return this.gameCharacter.isIndicateDirection; }
   get imageFile(): ImageFile { return this.gameCharacter.imageFile; }
   get resources(): {name: string; value: number; max: number}[] { return this.gameCharacter.resources; }
   get statuses(): string[] { return this.gameCharacter.statuses; }
@@ -51,6 +53,7 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
   gridSize: number = 50;
 
   movableOption: MovableOption = {};
+  rotableOption: RotableOption = {};
 
   constructor(
     private contextMenuService: ContextMenuService,
@@ -63,6 +66,10 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
     this.movableOption = {
       tabletopObject: this.gameCharacter,
       colideLayers: ['terrain', 'text-note']
+    };
+    this.rotableOption = {
+      tabletopObject: this.gameCharacter,
+      polygonal: 24
     };
   }
 
@@ -105,12 +112,16 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
       { name: '詳細を表示', action: () => { this.showDetail(this.gameCharacter); } },
       { name: 'チャットパレットを表示', action: () => { this.showChatPalette(this.gameCharacter) } },
       (this.isInvert ? 
-        { name: '向きを戻す', action: () => { this.gameCharacter.invert = false; } } :
-        { name: '向きを反転する', action: () => { this.gameCharacter.invert = true; } }
+        { name: '画像を反転しない', action: () => { this.gameCharacter.invert = false; } } :
+        { name: '画像を反転する', action: () => { this.gameCharacter.invert = true; } }
       ),
       (this.isProne ? 
         { name: '起き上がる', action: () => { this.gameCharacter.prone = false; } } :
         { name: '伏せる/転倒する', action: () => { this.gameCharacter.prone = true; } }
+      ),
+      (this.isIndicateDirection ? 
+        { name: '向きを表示しない', action: () => { this.gameCharacter.indicateDirection = false; } } :
+        { name: '向きを表示する', action: () => { this.gameCharacter.indicateDirection = true; } }
       ),
       {
         name: 'コピーを作る', action: () => {
@@ -133,7 +144,7 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
 
   private showDetail(gameObject: GameCharacter) {
     let coordinate = this.pointerDeviceService.pointers[0];
-    let option: PanelOption = { left: coordinate.x - 400, top: coordinate.y - 300, width: 800, height: 560 };
+    let option: PanelOption = { left: coordinate.x - 400, top: coordinate.y - 300, width: 800, height: 570 };
     let component = this.panelService.open<GameCharacterSheetComponent>(GameCharacterSheetComponent, option);
     component.tabletopObject = gameObject;
   }
