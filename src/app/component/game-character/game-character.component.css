@@ -71,6 +71,48 @@
   border-radius: 50%;
 }
 
+.pedestal-invisible:after {
+  content: "";
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  border: solid 4px transparent;
+  border-right: solid 8px red;
+  position: absolute;
+  top: 50%;
+  left: -6px;
+  margin-top: -4px;
+}
+
+.pedestal-invisible:before {
+  content: "";
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  border: solid 4px transparent;
+  border-right: solid 8px red;
+  position: absolute;
+  top: 50%;
+  right: -1px;
+  margin-top: -4px;
+}
+
+.pedestal-invisible:hover:after {
+  border-width: 10px;
+  border-right-width: 20px;
+  position: absolute;
+  left: -22px;
+  margin-top: -10px;
+}
+
+.pedestal-invisible:hover:before {
+  border-width: 10px;
+  border-right-width: 20px;
+  position: absolute;
+  right: -8px;
+  margin-top: -10px;
+}
+
 .pedestal-invisible:hover {
   border: 1px solid red;
 }
@@ -78,23 +120,23 @@
 .facing {
   width: 0;
   height: 0;
-  border: solid 8px transparent;
-  border-right: solid 12px red;
+  border: solid 10px transparent;
+  border-right: solid 20px transparent;
   position: absolute;
   top: 50%;
-  left: -13px;
-  margin-top: -8px;
+  left: -22px;
+  margin-top: -10px;
 }
 
 .hip {
   width: 0;
   height: 0;
-  border: solid 6px transparent;
-  border-right: solid 10px red;
+  border: solid 10px transparent;
+  border-right: solid 20px transparent;
   position: absolute;
   top: 50%;
-  right: -4px;
-  margin-top: -6px;
+  right: -8px;
+  margin-top: -10px;
 }
 
 .upright-transform {

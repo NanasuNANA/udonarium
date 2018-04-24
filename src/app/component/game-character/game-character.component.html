@@ -4,7 +4,7 @@
   <div class="component-content is-3d" [@bounceInOut]="'in'" >
     <div class="pedestal-inner"></div>
     <div class="pedestal-outer"></div>
-    <div [ngClass]="isIndicateDirection ? 'rotate-grab pedestal-invisible' : ''" appRotable [rotable.option]="rotableOption">
+    <div [ngClass]="isIndicateDirection ? 'pedestal-invisible' : ''" appRotable [rotable.option]="rotableOption">
       <span [ngClass]="isIndicateDirection ? 'rotate-grab facing' : ''"></span>
       <span [ngClass]="isIndicateDirection ? 'rotate-grab hip' : ''"></span>
     </div>
