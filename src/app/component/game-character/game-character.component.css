@@ -61,7 +61,7 @@
   border-radius: 25px;
 }
 
-.pedestal-invisible {
+.pedestal-direction {
   backface-visibility: hidden;
   position: absolute;
   height: 100%;
@@ -71,72 +71,50 @@
   border-radius: 50%;
 }
 
-.pedestal-invisible:after {
+.pedestal-direction:after, .pedestal-direction:before {
   content: "";
   pointer-events: none;
   width: 0;
   height: 0;
   border: solid 4px transparent;
+  margin-top: -4px;
   border-right: solid 8px red;
   position: absolute;
   top: 50%;
-  left: -6px;
-  margin-top: -4px;
 }
 
-.pedestal-invisible:before {
-  content: "";
-  pointer-events: none;
-  width: 0;
-  height: 0;
-  border: solid 4px transparent;
-  border-right: solid 8px red;
-  position: absolute;
+.pedestal-direction:after {
+  left: -5px;
+}
+
+.pedestal-direction:before {
+  right: 0px;
+}
+.pedestal-direction:hover:after, .pedestal-direction:hover:before, .front, .rear {
+  border-width: 12px;
+  border-right-width: 24px;
+  margin-top: -12px;
   top: 50%;
-  right: -1px;
-  margin-top: -4px;
 }
 
-.pedestal-invisible:hover:after {
-  border-width: 10px;
-  border-right-width: 20px;
-  position: absolute;
-  left: -22px;
-  margin-top: -10px;
+.pedestal-direction:hover:after, .front  {
+  left: -30px;
 }
 
-.pedestal-invisible:hover:before {
-  border-width: 10px;
-  border-right-width: 20px;
-  position: absolute;
-  right: -8px;
-  margin-top: -10px;
+.pedestal-direction:hover:before, .rear {
+  right: -16px;
 }
 
-.pedestal-invisible:hover {
+.pedestal-direction:hover {
   border: 1px solid red;
 }
 
-.facing {
+.front, .rear {
   width: 0;
   height: 0;
-  border: solid 10px transparent;
-  border-right: solid 20px transparent;
+  border-style: solid;
+  border-color: transparent;
   position: absolute;
-  top: 50%;
-  left: -22px;
-  margin-top: -10px;
-}
-
-.hip {
-  width: 0;
-  height: 0;
-  border: solid 10px transparent;
-  border-right: solid 20px transparent;
-  position: absolute;
-  top: 50%;
-  right: -8px;
-  margin-top: -10px;
 }
 
 .upright-transform {

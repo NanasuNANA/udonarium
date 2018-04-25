@@ -54,20 +54,21 @@ export class GameCharacter extends TabletopObject {
     }
   }
 
-  get isIndicateDirection(): boolean {
-    let element = this.getElement('direction', this.commonDataElement);
+  get directions(): number {
+    let element = this.getElement('directions', this.commonDataElement);
     if (!element) {
-      this.commonDataElement.appendChild(DataElement.create('direction', 'direction', { type: 'status' }, 'direction_' + this.identifier));
+      this.commonDataElement.appendChild(DataElement.create('directions', 0, { type: 'polygonal' }, 'directions_' + this.identifier));
     }
-    return element ? (+element.value !== 0) : false;
+    let num = element ? +element.value : 0;
+    return Number.isNaN(num) ? 0 : num;
   }
 
-  set indicateDirection(isIndicateDirection: boolean) {
-    let element = this.getElement('direction', this.commonDataElement);
+  set directions(directions: number) {
+    let element = this.getElement('directions', this.commonDataElement);
     if (!element) {
-      this.commonDataElement.appendChild(DataElement.create('direction', isIndicateDirection ? '' : '', { type: 'status' }, 'direction_' + this.identifier));
+      this.commonDataElement.appendChild(DataElement.create('directions', directions, { type: 'polygonal' }, 'directions_' + this.identifier));
     } else {
-      element.value = isIndicateDirection ? 'direction' : '';
+      element.value = directions;
     }
   }
 
@@ -104,7 +105,7 @@ export class GameCharacter extends TabletopObject {
     let altitudeElement: DataElement = DataElement.create('altitude', 0, {}, 'altitude_' + this.identifier);
     let invertElement: DataElement = DataElement.create('invert', '', { type: 'status' }, 'invert_' + this.identifier);
     let proneElement: DataElement = DataElement.create('prone', '', { type: 'status' }, 'prone_' + this.identifier);
-    let indicateDirectionElement: DataElement = DataElement.create('direction', '', { type: 'status' }, 'direction_' + this.identifier);
+    let directionsElement: DataElement = DataElement.create('directions', 0, { type: 'polygonal' }, 'directions_' + this.identifier);
 
     if (this.imageDataElement.getFirstElementByName('imageIdentifier')) {
       this.imageDataElement.getFirstElementByName('imageIdentifier').value = imageIdentifier;
@@ -120,7 +121,7 @@ export class GameCharacter extends TabletopObject {
     this.commonDataElement.appendChild(altitudeElement);
     this.commonDataElement.appendChild(invertElement);
     this.commonDataElement.appendChild(proneElement);
-    this.commonDataElement.appendChild(indicateDirectionElement);
+    this.commonDataElement.appendChild(directionsElement);
 
     this.detailDataElement.appendChild(resourceElement);
     resourceElement.appendChild(hpElement);

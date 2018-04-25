@@ -10,8 +10,8 @@
           <option value="">通常</option>
           <option value="simpleNumber">数値</option>
           <option value="numberResource">リソース</option>
-          <option value="status">✔状態</option>
-          <option value="expendable">✔消耗</option>
+          <option value="status">状態チェック</option>
+          <option value="expendable">消耗チェック</option>
          <option value="note">ノート</option>
       </select>
     </div>
@@ -52,6 +52,17 @@
           </ng-container>
           <ng-container *ngSwitchCase="'expendable'">
             <input style="width:80%; max-width:4em" type="checkbox" value="{{gameDataElement.name}}" checked="{{!gameDataElement.value ? 'checked' : ''}}" (change)="gameDataElement.value = (!gameDataElement.value ? gameDataElement.name : '')">
+          </ng-container>
+          <ng-container *ngSwitchCase="'polygonal'">
+            <select class="polygonal" style="width:80%; max-width:6em" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value">
+              <option value="0">非表示</option>
+              <option value="4">4方向</option>
+              <option value="6">6方向</option>
+              <option value="8">8方向</option>
+              <option value="12">12方向</option>
+              <option value="16">16方向</option>
+              <option value="24">24方向</option>
+            </select>
           </ng-container>
           <ng-container *ngSwitchCase="'note'">
             <textarea class="data-element-note" style="width:100%; min-width:50px; resize:both;" [style.height]="isTagLocked ? '15em' : '5.7em'" (change)="this.markdownImageBrobUrlReplace2IdValue()" [(ngModel)]="gameDataElement.value" placeholder="Note"></textarea>

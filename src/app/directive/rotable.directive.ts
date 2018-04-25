@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { EventSystem } from '../class/core/system/system';
 import { TabletopObject } from '../class/tabletop-object';
@@ -33,6 +33,7 @@ export class RotableDirective extends Grabbable implements OnInit, OnDestroy, Af
     this.polygonal = option.polygonal != null ? option.polygonal : this.polygonal;
   }
   @Input('rotable.disable') isDisable: boolean = false;
+  @Input('rotable.others') others = {};
   @Output('rotable.onstart') onstart: EventEmitter<PointerEvent> = new EventEmitter();
   @Output('rotable.ondrag') ondrag: EventEmitter<PointerEvent> = new EventEmitter();
   @Output('rotable.onend') onend: EventEmitter<PointerEvent> = new EventEmitter();
@@ -68,6 +69,18 @@ export class RotableDirective extends Grabbable implements OnInit, OnDestroy, Af
   }
 
   ngOnInit() { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.others) {
+      console.log('changes.others: ' + this.others);
+      if (this.others['polygonal'] + 0) {
+        console.log('polygonal: ' + this.others['polygonal'] );
+        this.polygonal = this.others['polygonal'] + 0;
+        this.stickToPolygonal(this.polygonal);
+      }
+      this.updateTransformCss();
+    }
+  }
 
   ngAfterViewInit() {
     EventSystem.register(this)
@@ -142,7 +155,7 @@ export class RotableDirective extends Grabbable implements OnInit, OnDestroy, Af
     return ((rad * 180 / Math.PI) - rotateOffset) % 360;
   }
 
-  stickToPolygonal(polygonal: number = 24) {
+  stickToPolygonal(polygonal: number = this.polygonal) {
     this.rotate = this.rotate < 0 ? this.rotate - (180 / polygonal) : this.rotate + (180 / polygonal);
     this.rotate -= (this.rotate) % (360 / polygonal);
   }

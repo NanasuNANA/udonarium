@@ -43,7 +43,8 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
   get altitude(): number { return this.gameCharacter.altitude; }
   get isInvert(): boolean { return this.gameCharacter.isInvert; }
   get isProne(): boolean { return this.gameCharacter.isProne; }
-  get isIndicateDirection(): boolean { return this.gameCharacter.isIndicateDirection; }
+  get directions(): number { return this.gameCharacter.directions; }
+  get isIndicateDirection(): boolean { return this.gameCharacter.directions > 0; }
   get imageFile(): ImageFile { return this.gameCharacter.imageFile; }
   get resources(): {name: string; value: number; max: number}[] { return this.gameCharacter.resources; }
   get statuses(): string[] { return this.gameCharacter.statuses; }
@@ -118,10 +119,6 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
       (this.isProne ? 
         { name: '起き上がる', action: () => { this.gameCharacter.prone = false; } } :
         { name: '伏せる/転倒する', action: () => { this.gameCharacter.prone = true; } }
-      ),
-      (this.isIndicateDirection ? 
-        { name: '向きを表示しない', action: () => { this.gameCharacter.indicateDirection = false; } } :
-        { name: '向きを表示する', action: () => { this.gameCharacter.indicateDirection = true; } }
       ),
       {
         name: 'コピーを作る', action: () => {

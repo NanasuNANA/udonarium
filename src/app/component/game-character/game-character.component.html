@@ -4,9 +4,10 @@
   <div class="component-content is-3d" [@bounceInOut]="'in'" >
     <div class="pedestal-inner"></div>
     <div class="pedestal-outer"></div>
-    <div [ngClass]="isIndicateDirection ? 'pedestal-invisible' : ''" appRotable [rotable.option]="rotableOption">
-      <span [ngClass]="isIndicateDirection ? 'rotate-grab facing' : ''"></span>
-      <span [ngClass]="isIndicateDirection ? 'rotate-grab hip' : ''"></span>
+    <div [ngClass]="isIndicateDirection ? 'pedestal-direction' : ''"
+    appRotable [rotable.option]="rotableOption" [rotable.others]="{'polygonal': directions}">
+      <span [ngClass]="isIndicateDirection ? 'rotate-grab front' : ''"></span>
+      <span [ngClass]="isIndicateDirection ? 'rotate-grab rear' : ''"></span>
     </div>
     <div class="upright-transform is-fit-width is-3d">
       <div class="fill-frame">
