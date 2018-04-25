@@ -209,6 +209,10 @@
   padding: 0 2px;
 }
 
+.nal {
+  color: #666;
+}
+
 .warning {
   color: yellow;
 }
