@@ -127,6 +127,7 @@ export class TerrainComponent implements OnInit, OnDestroy, AfterViewInit {
           console.log('コピー', cloneObject);
           cloneObject.location.x += this.gridSize;
           cloneObject.location.y += this.gridSize;
+          cloneObject.isLocked = false;
           cloneObject.update();
           if (this.terrain.parent) this.terrain.parent.appendChild(cloneObject);
         }
