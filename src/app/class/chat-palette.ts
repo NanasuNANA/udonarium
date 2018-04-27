@@ -85,8 +85,8 @@ export class ChatPalette extends ObjectNode {
             }
             return element.value + '';
           } else {
-            if (((element = extendVariables.getFirstElementByName(name.replace(/^最大/, ''))) 
-             || (element = extendVariables.getFirstElementByName(name.replace(/原点$/, '')))
+            if ((element = extendVariables.getFirstElementByName(name.replace(/^最大/, '')) 
+             || extendVariables.getFirstElementByName(name.replace(/原点$/, ''))
             ) && element.isNumberResource) {
               return element.value + '';
             }
