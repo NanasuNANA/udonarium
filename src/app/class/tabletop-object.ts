@@ -62,11 +62,13 @@ export class TabletopObject extends ObjectNode {
     return result;
   }
 
-  get statuses(): string[] {
+  get statuses(): {name: string; repletion?: string;}[] {
     let elements = this.detailDataElement.getElementsByType('status');
-    let result: string[] = [];
+    let result: {name: string; repletion: string;}[] = [];
     for (let element of elements) {
-      if (element.value && element.value.toString().trim() && element.value.toString().trim().indexOf('#') != 0) result.push(element.value.toString().trim());
+      if (element.value && element.value.toString().trim() && element.value.toString().trim().indexOf('#') != 0) {
+        result.push({name: element.value.toString().trim(), repletion: element.currentValue ? element.currentValue.toString().trim() : null});
+      }
     }
     return result;
   }

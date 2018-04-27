@@ -75,7 +75,22 @@ export class ChatPalette extends ObjectNode {
         }
         if (extendVariables) {
           let element = extendVariables.getFirstElementByName(name);
-          if (element) return element.isNumberResource ? element.currentValue + '' : element.value + '';
+          if (element) {
+            if (element.isNumberResource) return element.currentValue + '';
+            if (element.isStatus) {
+              if (!element.value) return '';
+              if (!element.currentValue || element.currentValue === '0') return element.name;
+              if (!isNaN(Number(element.currentValue)) || /^[\(\{\[\:\<]/.test(element.currentValue.toString())) return element.name + element.currentValue;
+              return element.name + '(' + element.currentValue + ')';
+            }
+            return element.value + '';
+          } else {
+            if (((element = extendVariables.getFirstElementByName(name.replace(/^最大/, ''))) 
+             || (element = extendVariables.getFirstElementByName(name.replace(/原点$/, '')))
+            ) && element.isNumberResource) {
+              return element.value + '';
+            }
+          }
         }
         return '';
       });

@@ -37,7 +37,7 @@
         <ng-container [ngSwitch]="gameDataElement.attributes['type']">
           <ng-container *ngSwitchCase="'numberResource'">
              <sup>0</sup> <input style="width:70%;" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" type="range" min="0"
-              max="{{!+gameDataElement.value ? 255 : gameDataElement.value}}" /><sup>{{!+gameDataElement.value ? '???' : gameDataElement.value}}</sup>
+              max="{{!+gameDataElement.value ? 100 : gameDataElement.value}}" /><sup>{{!+gameDataElement.value ? '???' : gameDataElement.value}}</sup>
             <br />
             <input style="width:40%; max-width:8em" type="number" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" placeholder="Value"
             /> /
@@ -47,8 +47,12 @@
           <ng-container *ngSwitchCase="'simpleNumber'">
             <input style="width:100%; max-width:8em" type="number" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value">
           </ng-container>
+          <ng-container *ngSwitchCase="'check'">
+              <input style="width:40%; max-width:4em" type="checkbox" value="{{gameDataElement.name}}" checked="{{gameDataElement.value ? 'checked' : ''}}" (change)="gameDataElement.value = (!gameDataElement.value ? gameDataElement.name : '')">
+          </ng-container>
           <ng-container *ngSwitchCase="'status'">
-            <input style="width:80%; max-width:4em" type="checkbox" value="{{gameDataElement.name}}" checked="{{gameDataElement.value ? 'checked' : ''}}" (change)="gameDataElement.value = (!gameDataElement.value ? gameDataElement.name : '')">
+            <input style="width:40%; max-width:4em" type="checkbox" value="{{gameDataElement.name}}" checked="{{gameDataElement.value ? 'checked' : ''}}" (change)="gameDataElement.value = (!gameDataElement.value ? gameDataElement.name : '')">
+            <input style="width:40%; max-width:4em" [type]="(gameDataElement.currentValue && gameDataElement.currentValue == +gameDataElement.currentValue) ? 'number' : 'text'" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" placeholder="Option">
           </ng-container>
           <ng-container *ngSwitchCase="'expendable'">
             <input style="width:80%; max-width:4em" type="checkbox" value="{{gameDataElement.name}}" checked="{{!gameDataElement.value ? 'checked' : ''}}" (change)="gameDataElement.value = (!gameDataElement.value ? gameDataElement.name : '')">
@@ -72,7 +76,7 @@
             <!-- size属性がないと小さくならない -->
             <div class="hidden-spacer" style="font-size: 1.2rem; font-family: Cambria, Georgia;">{{gameDataElement.value}}</div>
             <input style="width:100%; min-width:10px;" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value"
-              placeholder="Value" />
+            [type]="(gameDataElement.value && gameDataElement.value == +gameDataElement.value) ? 'number' : 'text'" placeholder="Value" />
           </ng-container>
         </ng-container>
       </ng-container>

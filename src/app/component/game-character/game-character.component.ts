@@ -47,7 +47,19 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
   get isIndicateDirection(): boolean { return this.gameCharacter.directions > 0; }
   get imageFile(): ImageFile { return this.gameCharacter.imageFile; }
   get resources(): {name: string; value: number; max: number}[] { return this.gameCharacter.resources; }
-  get statuses(): string[] { return this.gameCharacter.statuses; }
+  get statuses(): string[] {
+    let res: string[] = [];
+    for (let status of this.gameCharacter.statuses) {
+      if (!status.repletion || status.repletion === '0') {
+        res.push(status.name);
+      } else if (!isNaN(Number(status.repletion)) || /^[\(\{\[\:\<]/.test(status.repletion)) {
+        res.push(status.name + status.repletion);
+      } else {
+        res.push(status.name + '(' + status.repletion + ')');
+      }
+    }
+    return res;
+  }
   get expendables(): {name: string; expended: boolean}[] { return this.gameCharacter.expendables; }
   get tooltipInfo(): string { return this.gameCharacter.firstNote.text }
 

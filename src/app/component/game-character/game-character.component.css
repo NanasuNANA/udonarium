@@ -151,7 +151,7 @@
 
 .name-tag {
   box-sizing: border-box;
-  font-size: 15px;
+  font-size: 14px;
   padding: 2px 9px;
   border-radius: 24px;
   position: absolute;
@@ -181,7 +181,7 @@
 .statuses {
   font-size: 9px;
   color: red;
-  text-align: left;
+  text-align: right;
   width: 100%;
   margin-top: -13px;
   font-weight: bolder;
@@ -191,7 +191,7 @@
 .resources {
   font-size: 9px;
   color: #88f;
-  text-align: right;
+  text-align: left;
   width: 100%;
   margin-top: -12px;
   text-shadow: #aaa 0 0 1px;
@@ -211,6 +211,7 @@
 
 .nal {
   color: #666;
+  text-shadow: none;
 }
 
 .warning {

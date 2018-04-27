@@ -9,6 +9,7 @@ export class DataElement extends ObjectNode {
 
   get isNumberResource(): boolean { return this.attributes['type'] != null && this.attributes['type'] === 'numberResource'; }
   get isNote(): boolean { return this.attributes['type'] != null && this.attributes['type'] === 'note'; }
+  get isStatus(): boolean { return this.attributes['type'] != null && this.attributes['type'] === 'status'; }
 
   public static create(name: string, value: number | string = '', attributes: Attributes = {}, identifier: string = ''): DataElement {
     let dataElement: DataElement;
