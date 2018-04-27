@@ -109,7 +109,7 @@ export class MovableDirective extends Grabbable implements OnInit, OnDestroy, Af
   protected onMouseDown(e: PointerEvent) {
     this.callSelectedEvent();
 
-    if (this.isDisable) return this.cancel();
+    if (this.isDisable || e.button === 2) return this.cancel();
     e.preventDefault();
     this.onstart.emit(e);
 
