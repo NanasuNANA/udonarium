@@ -48,7 +48,7 @@
   width: 100%;
   box-sizing: border-box;
   border:solid 6px #FFCC80;
-  border-radius: 25px;
+  border-radius: 50%;
 }
 
 .pedestal-outer {
@@ -58,7 +58,7 @@
   width: 100%;
   box-sizing: border-box;
   border:solid 2px #212121;
-  border-radius: 25px;
+  border-radius: 50%;
 }
 
 .pedestal-direction {
