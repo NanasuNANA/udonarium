@@ -76,19 +76,19 @@
   pointer-events: none;
   width: 0;
   height: 0;
-  border: solid 4px transparent;
-  margin-top: -4px;
-  border-right: solid 8px red;
+  border: solid 5px transparent;
+  margin-top: -5px;
+  border-right: solid 10px red;
   position: absolute;
   top: 50%;
 }
 
 .pedestal-direction:after {
-  left: -5px;
+  left: -8px;
 }
 
 .pedestal-direction:before {
-  right: 0px;
+  right: -2px;
 }
 .pedestal-direction:hover:after, .pedestal-direction:hover:before, .front, .rear {
   border-width: 12px;
