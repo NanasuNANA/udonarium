@@ -194,7 +194,8 @@
   text-align: left;
   width: 100%;
   margin-top: -12px;
-  text-shadow: #aaa 0 0 1px;
+  text-shadow: #666 0 0 1px;
+  ;
 }
 
 .resourceName {
