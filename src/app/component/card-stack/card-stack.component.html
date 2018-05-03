@@ -1,6 +1,6 @@
 <div class="component is-3d is-pointer-events-none" [ngClass]="{'is-empty': isEmpty}"
   [style.width.px]="size * gridSize"
-  appMovable [movable.option]="movableOption" [attr.title]="tooltipInfo">
+  appMovable [movable.option]="movableOption" [attr.title]="cardStack.infomationText">
   <div class="component-content is-3d is-pointer-events-auto is-grab"
     appRotable [rotable.option]="rotableOption">
     <div *ngIf="imageFile" (@shuffle.start)="animationShuffleStarted($event)" (@shuffle.done)="animationShuffleDone($event)"

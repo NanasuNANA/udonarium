@@ -35,8 +35,6 @@ export class TerrainComponent implements OnInit, OnDestroy, AfterViewInit {
   get width(): number { return this.adjustMinBounds(this.terrain.width); }
   get depth(): number { return this.adjustMinBounds(this.terrain.depth); }
 
-  get tooltipInfo(): string { return this.terrain.firstNote.text }
-
   gridSize: number = 50;
 
   movableOption: MovableOption = {};

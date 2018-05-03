@@ -1,5 +1,5 @@
 <div class="component is-3d is-pointer-events-none is-grab" [style.width.px]="size * gridSize"
-  appMovable [movable.option]="movableOption" [attr.title]="tooltipInfo">
+  appMovable [movable.option]="movableOption" [attr.title]="card.infomationText">
   <div *ngIf="imageFile" class="component-content is-pointer-events-auto"
     appRotable [rotable.option]="rotableOption">
     <img *ngIf="isFront" class="card-image" [src]="frontImage.url | safe: 'resourceUrl'">

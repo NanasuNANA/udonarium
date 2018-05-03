@@ -61,7 +61,6 @@ export class GameCharacterComponent implements OnInit, OnDestroy, AfterViewInit 
     return res;
   }
   get expendables(): {name: string; expended: boolean}[] { return this.gameCharacter.expendables; }
-  get tooltipInfo(): string { return this.gameCharacter.firstNote.text }
 
   gridSize: number = 50;
 

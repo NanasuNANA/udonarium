@@ -35,7 +35,6 @@ export class TextNoteComponent implements OnInit {
   get height(): number { return this.adjustMinBounds(this.textNote.height); }
   get width(): number { return this.adjustMinBounds(this.textNote.width); }
   get altitude(): number { return this.textNote.altitude; }
-  get tooltipInfo(): string { return this.textNote.firstNote.text }
 
   get isSelected(): boolean { return document.activeElement === this.textAreaElementRef.nativeElement; }
 

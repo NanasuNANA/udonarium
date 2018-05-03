@@ -25,7 +25,6 @@ export class GameTableMaskComponent implements OnInit, OnDestroy, AfterViewInit 
   get imageFile(): ImageFile { return this.gameTableMask.imageFile; }
   get isLock(): boolean { return this.gameTableMask.isLock; }
   set isLock(isLock: boolean) { this.gameTableMask.isLock = isLock; }
-  get tooltipInfo(): string { return this.gameTableMask.firstNote.text }
 
   gridSize: number = 50;
 

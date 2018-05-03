@@ -52,7 +52,6 @@ export class CardComponent implements OnInit, OnDestroy, AfterViewInit {
   get imageFile(): ImageFile { return this.card.imageFile; }
   get frontImage(): ImageFile { return this.card.frontImage; }
   get backImage(): ImageFile { return this.card.backImage; }
-  get tooltipInfo(): string { return this.card.firstNote.text }
 
   gridSize: number = 50;
 

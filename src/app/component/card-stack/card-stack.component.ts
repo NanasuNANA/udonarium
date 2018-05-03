@@ -55,8 +55,6 @@ export class CardStackComponent implements OnInit {
   get topCard(): Card { return this.cardStack.topCard; }
   get imageFile(): ImageFile { return this.cardStack.imageFile; }
 
-  get tooltipInfo(): string { return this.cardStack.firstNote.text }
-
   animeState: string = 'inactive';
 
   private callbackOnMouseUp = (e) => this.onMouseUp(e);
