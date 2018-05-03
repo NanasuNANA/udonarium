@@ -13,15 +13,17 @@
       <div *ngIf="inventoryType === networkService.peerId">{{networkService.peerContext.id}}</div>
       <div *ngFor="let gameObject of getGameObjects(inventoryType)" (click)="selectGameObject(gameObject)" [ngClass]="{'box': true, 'selected': (selectedIdentifier === gameObject.identifier)}">
         <div style="display: inline-block;">
-          <div style="min-width:50px; min-height:50px; display: inline-block; vertical-align:text-top;">
-            <img *ngIf="gameObject.imageFile" height="50" [src]="gameObject.imageFile.url | safe: 'resourceUrl'" />
+          <div style="min-width:50px; min-height:50px; display: inline-block; vertical-align:text-top; overflow-y:hidden">
+            <img class="main-image" *ngIf="gameObject.imageFile" height="50" [src]="gameObject.imageFile.url | safe: 'resourceUrl'"
+            [ngStyle]="{'transform': 'scale(' + (gameObject.isInvert ? -1 : 1) + ', 1) translateY(' + (gameObject.isProne ? '25' : '0') + '%) rotateZ(' + (gameObject.isProne ? (gameObject.isInvert ? '90' : '-90') : '0') + 'deg)'}"
+            [attr.title]="gameObject.infomationText" />
           </div>
           <div style="display: inline-block; vertical-align:text-top;" [ngClass]="{'input_selected': (selectedIdentifier === gameObject.identifier)}">
             <div style="font-size: 0.8rem;">{{gameObject.name}}</div>
             <div *ngIf="gameObject.detailDataElement">
               <div *ngFor="let gameDataElement of gameObject.detailDataElement.getElementsByType('numberResource')" style="display: inline-block;" [ngClass]="{'input_selected': (selectedIdentifier === gameObject.identifier)}">
                 <input style="width:90%; height: 5px;" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" type="range"
-                  min="0" max="{{gameDataElement.value}}" />
+                  min="0" max="{{!+gameDataElement.value ? 100 : gameDataElement.value}}" />
                 <br> {{gameDataElement.name}}
                 <input class="input" type="number" [ngClass]="{'input_selected': (selectedIdentifier === gameObject.identifier)}" style="width:auto;" size="1"
                   (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue" placeholder="Value" />                /

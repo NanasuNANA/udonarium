@@ -48,6 +48,40 @@ export class TabletopObject extends ObjectNode {
     return this._imageFile;
   }
 
+  get isInvert(): boolean {
+    let element = this.getElement('invert', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('invert', '', { type: 'check' }, 'invert_' + this.identifier));
+    }
+    return element ? (+element.value !== 0) : false;
+  }
+
+  set invert(isInvert: boolean) {
+    let element = this.getElement('invert', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('invert', isInvert ? 'invert' : '', { type: 'check' }, 'invert_' + this.identifier));
+    } else {
+      element.value = isInvert ? 'invert' : '';
+    }
+  }
+
+  get isProne(): boolean {
+    let element = this.getElement('prone', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('prone', '', { type: 'check' }, 'prone_' + this.identifier));
+    }
+    return element ? (+element.value !== 0) : false;
+  }
+
+  set prone(isProne: boolean) {
+    let element = this.getElement('prone', this.commonDataElement);
+    if (!element) {
+      this.commonDataElement.appendChild(DataElement.create('prone', isProne ? 'prone' : '', { type: 'check' }, 'prone_' + this.identifier));
+    } else {
+      element.value = isProne ? 'prone' : '';
+    }
+  }
+  
   get resources(): {name: string; value: number; max: number}[] {
     let elements = this.detailDataElement.getElementsByType('numberResource');
     let result: {name: string; value: number; max: number}[] = [];
@@ -93,6 +127,9 @@ export class TabletopObject extends ObjectNode {
     }
     return {};
   }
+
+  //TODO 内容をもう少しリッチに
+  get infomationText(): string { return this.firstNote.text }
 
   static createTabletopObject(name: string, identifier?: string): TabletopObject {
 

@@ -20,40 +20,6 @@ export class GameCharacter extends TabletopObject {
   get name(): string { return this.getCommonValue('name', ''); }
   get size(): number { return this.getCommonValue('size', 1); }
 
-  get isInvert(): boolean {
-    let element = this.getElement('invert', this.commonDataElement);
-    if (!element) {
-      this.commonDataElement.appendChild(DataElement.create('invert', '', { type: 'check' }, 'invert_' + this.identifier));
-    }
-    return element ? (+element.value !== 0) : false;
-  }
-
-  set invert(isInvert: boolean) {
-    let element = this.getElement('invert', this.commonDataElement);
-    if (!element) {
-      this.commonDataElement.appendChild(DataElement.create('invert', isInvert ? 'invert' : '', { type: 'check' }, 'invert_' + this.identifier));
-    } else {
-      element.value = isInvert ? 'invert' : '';
-    }
-  }
-
-  get isProne(): boolean {
-    let element = this.getElement('prone', this.commonDataElement);
-    if (!element) {
-      this.commonDataElement.appendChild(DataElement.create('prone', '', { type: 'check' }, 'prone_' + this.identifier));
-    }
-    return element ? (+element.value !== 0) : false;
-  }
-
-  set prone(isProne: boolean) {
-    let element = this.getElement('prone', this.commonDataElement);
-    if (!element) {
-      this.commonDataElement.appendChild(DataElement.create('prone', isProne ? 'prone' : '', { type: 'check' }, 'prone_' + this.identifier));
-    } else {
-      element.value = isProne ? 'prone' : '';
-    }
-  }
-
   get directions(): number {
     let element = this.getElement('directions', this.commonDataElement);
     if (!element) {

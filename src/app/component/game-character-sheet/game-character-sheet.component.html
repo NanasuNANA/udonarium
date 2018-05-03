@@ -22,6 +22,7 @@
 <div *ngIf="tabletopObject" class="flex-container">
   <div *ngIf="0 < tabletopObject.imageFile?.url.length" class="box main-image-box">
     <img class="main-image" [src]="tabletopObject.imageFile.url | safe: 'resourceUrl'" [alt]="tabletopObject.imageFile.name"
+    [ngStyle]="{'transform': 'scale(' + (tabletopObject.isInvert ? -1 : 1) + ', 1) translateY(' + (tabletopObject.isProne ? '25' : '0') + '%) rotateZ(' + (tabletopObject.isProne ? (tabletopObject.isInvert ? '90' : '-90') : '0') + 'deg)'}"
     />
   </div>
   <ng-container *ngIf="tabletopObject.commonDataElement">
