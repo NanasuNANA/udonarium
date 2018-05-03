@@ -10,6 +10,7 @@
           <option value="">通常</option>
           <option value="simpleNumber">数値</option>
           <option value="numberResource">リソース</option>
+          <option value="abilityScore">能力値</option>
           <option value="status">状態チェック</option>
           <option value="expendable">消耗チェック</option>
          <option value="note">ノート</option>
@@ -46,6 +47,22 @@
           </ng-container>
           <ng-container *ngSwitchCase="'simpleNumber'">
             <input style="width:100%; max-width:8em" type="number" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value">
+          </ng-container>
+          <ng-container *ngSwitchCase="'abilityScore'">
+            <input style="width:40%; max-width:8em" type="number" size="1" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.value" placeholder="Value">
+            <ng-container *ngIf="isEdit">
+              <select class="modeifire-type" style="width:40%; max-width:8em" (change)="gameDataElement.update()" [(ngModel)]="gameDataElement.currentValue">
+                <option value="">なし</option>
+                <option value="div2">÷2</option>
+                <option value="div3">÷3 (SRS,LHZ)</option>
+                <option value="div4">÷4</option>
+                <option value="div5">÷5</option>
+                <option value="div6">÷6 (SW)</option>
+                <option value="div10">÷10</option>
+                <option value="DnD3">D&amp;D (>=3.0)</option>
+              </select>
+            </ng-container>
+            <ng-container *ngIf="!isEdit">{{'(' + (gameDataElement.calcAbilityScore() >=0 ? '+' : '') + gameDataElement.calcAbilityScore() + ')'}}</ng-container>
           </ng-container>
           <ng-container *ngSwitchCase="'check'">
               <input style="width:40%; max-width:4em" type="checkbox" value="{{gameDataElement.name}}" checked="{{gameDataElement.value ? 'checked' : ''}}" (change)="gameDataElement.value = (!gameDataElement.value ? gameDataElement.name : '')">
